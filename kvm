@@ -1,0 +1,24 @@
+    virt-install \
+    --virt-type kvm\
+    --name ubuntu_1 \
+    --ram 24567 \
+    --vcpus 8 \
+    --cpu host-passthrough,cache.mode=passthrough\
+    --disk path=/kvm/ubuntu_1.qcow2,size=200,bus=virtio,format=qcow2\
+    --os-type=ubuntu22.04 \
+    --network bridge=br1,model=virtio \
+    --graphics none\
+    --extra-args="console=tty0 console=ttyS0,115200"\
+    --location /home/xuhui/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
+    
+    #ram:单位mb ,  disk:单位 gb
+    #graphics:vnc,  port:vnc时监听的端口 ,listen:vnc时监听的址址，password:vnc认证密码
+    
+    
+    
+    #用已经存在的文件，创建一个vm
+    virt-install \
+    --name rhel5.8\
+    --ram 512\
+    --disk /vms/rhel5.8.img\
+    --import
