@@ -1,0 +1,31 @@
+#改ip 
+
+cat >> 00-installer-config.yaml << EOF
+network:
+  ethernets:
+    enp1s0:
+      dhcp4: false
+      dhcp6: false
+      addresses: 
+        -  192.168.0.201/24
+      routes: 
+        -  to: default
+           via: 192.168.0.1
+      nameservers:
+        addresses:
+          -  192.168.0.1
+          -  114.114.114.114
+          -  8.8.8.8
+    version: 2
+    renderer: NetworkManager
+
+
+
+
+cat >> 00-installer-config.yaml << EOF
+network:
+  ethernets:
+    enp1s0:
+      dhcp4: true
+      dhcp6: false
+  version: 2
