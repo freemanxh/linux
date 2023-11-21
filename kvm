@@ -1,4 +1,6 @@
-    virt-install \
+#virt-install
+
+virt-install \
     --virt-type kvm\
     --name ubuntu_1 \
     --ram 24567 \
@@ -22,3 +24,13 @@
     --ram 512\
     --disk /vms/rhel5.8.img\
     --import
+
+
+#外网拼通
+/etc/sysctl.d
+  
+file:      50-custom.conf
+
+net.bridge.bridge-nf-call-ip6tables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.bridge.bridge-nf-call-arptables = 0
