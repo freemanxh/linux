@@ -8,4 +8,6 @@ UseDNS no
 HostbasedAcceptedKeyTypes +ssh-rsa
 PubkeyAcceptedKeyTypes +ssh-rsa
 EOF
+
+
 systemctl restart sshd
