@@ -1,0 +1,11 @@
+# 关闭ssh 用户密码登录服务
+
+cat >> /etc/ssh/sshd_config.d/default.conf<<EOF
+X11Forwarding no
+PasswordAuthentication no
+PermitRootLogin prohibit-password
+UseDNS no
+HostbasedAcceptedKeyTypes +ssh-rsa
+PubkeyAcceptedKeyTypes +ssh-rsa
+EOF
+systemctl restart sshd
