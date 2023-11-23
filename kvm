@@ -1,16 +1,16 @@
 #virt-install
 
 virt-install \
-    --virt-type kvm\
+    --virt-type kvm \
     --name ubuntu_1 \
     --ram 24567 \
     --vcpus 8 \
-    --cpu host-passthrough,cache.mode=passthrough\
-    --disk path=/kvm/ubuntu_1.qcow2,size=200,bus=virtio,format=qcow2\
+    --cpu host-passthrough,cache.mode=passthrough \
+    --disk path=/kvm/ubuntu_1.qcow2,size=200,bus=virtio,format=qcow2 \
     --os-type=ubuntu22.04 \
     --network bridge=br1,model=virtio \
-    --graphics none\
-    --extra-args="console=tty0 console=ttyS0,115200"\
+    --graphics none \
+    --extra-args="console=tty0 console=ttyS0,115200" \
     --location /home/xuhui/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
     
     #ram:单位mb ,  disk:单位 gb
@@ -20,9 +20,9 @@ virt-install \
     
     #用已经存在的文件，创建一个vm
     virt-install \
-    --name rhel5.8\
-    --ram 512\
-    --disk /vms/rhel5.8.img\
+    --name rhel5.8 \
+    --ram 512 \
+    --disk /vms/rhel5.8.img \
     --import
 
 
@@ -34,3 +34,33 @@ file:      50-custom.conf
 net.bridge.bridge-nf-call-ip6tables = 0
 net.bridge.bridge-nf-call-iptables = 0
 net.bridge.bridge-nf-call-arptables = 0
+
+
+
+
+
+#######################################################################
+#安装windows
+virt-install \
+--virt-type kvm \
+--name win10 \
+--memory 8192 \
+--vcpus 2 \
+--cpu host-passthrough,cache.mode=passthrough \
+--os-type windows \
+--os-variant win10 \
+--cdrom /home/xuhui/win10.iso \
+--disk path=/data/kvm/win10/win10.qcow2,size=120,format=qcow2 \
+--network bridge=br0 \
+--graphics vnc,password=654321,port=5902,listen=0.0.0.0
+
+
+#以下为安装windows可选参数
+
+--boot cdrom \
+--connect qemu:///system \
+--cdrom /home/xuhui/virtio-win-drivers.iso \
+--location /home/xuhui/virtio-win-drivers.iso,device=cdrom,bus=ide \
+--cdrom /home/xuhui/virtio-win-drivers.iso \
+
+
