@@ -55,6 +55,18 @@ virt-install \
 --graphics vnc,password=654321,port=5902,listen=0.0.0.0
 
 
+#安装好后
+qemu-img create -f qcow2 virtio-test.qcow2 20G
+
+#改xml文件
+<disk
+ <target dev='sda' bus='virtio'/>
+ <address type="drive"   #删除掉,注意改dev中的sdx
+ 
+<interface
+	<model type="virtio"/>
+
+
 #以下为安装windows可选参数
 
 --boot cdrom \
