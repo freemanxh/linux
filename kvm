@@ -25,8 +25,15 @@ network:
       parameters:
         stp: false
 
+-------------------------------------------------
+安装时，报qemu-inst没有权限
+/etc/libvirt/qmeu.conf
 
+user="root"
+group="root"
 
+sudo systemctl restart libvirtd
+--------------------------------------------------
 
 
 
