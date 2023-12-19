@@ -22,7 +22,7 @@ network:
 
 
 
-
+#cat 改最简ip
 cat >> 00-installer-config.yaml << EOF
 network:
   ethernets:
@@ -30,3 +30,14 @@ network:
       dhcp4: true
       dhcp6: false
   version: 2
+
+
+
+#设置系统时区
+timedatectl
+
+sudo systemctl status systemd-timesyncd.service
+
+sudo timedatectl set-ntp true  #手动设置时区同步
+
+sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
