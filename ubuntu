@@ -41,3 +41,11 @@ sudo systemctl status systemd-timesyncd.service
 sudo timedatectl set-ntp true  #手动设置时区同步
 
 sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
+
+
+# mount lvm disk
+fdisk -l /dev/sdb
+lvmdiskscan  #查看lvm disk
+vgchange -ay #应该是把lvm归组
+lvscan #查看归组的lvm
+mount /dev/ubuntu-vg/lv-root /mnt/disk #mount lvm disk
