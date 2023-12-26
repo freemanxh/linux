@@ -47,6 +47,10 @@ sudo systemctl restart libvirtd
 --------------------------------------------------
 
 
+#挂载hdd
+UUID=a51fe2d2-4beb-4f80-8bae-0352576a1f9d  /kvm ext4 defaults 0 1
+chown libvirt-qemu:kvm /kvm
+
 
 
 #virt-install
