@@ -38,7 +38,7 @@ network:
 
 -------------------------------------------------
 安装时，报qemu-inst没有权限
-/etc/libvirt/qmeu.conf
+/etc/libvirt/qemu.conf
 
 user="root"
 group="root"
@@ -67,6 +67,22 @@ virt-install \
     --graphics none \
     --extra-args="console=tty0 console=ttyS0,115200" \
     --location /home/xuhui/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
+
+
+
+#安装测试环境
+virt-install \
+    --virt-type kvm \
+    --name u_test_1 \
+    --ram 4096 \
+    --vcpus 4 \
+    --cpu host-passthrough,cache.mode=passthrough \
+    --disk path=/kvm/u_test_1.qcow2,size=120,bus=virtio,format=qcow2 \
+    --os-type=ubuntu22.04 \
+    --network bridge=br0,model=virtio \
+    --graphics none \
+    --extra-args="console=tty0 console=ttyS0,115200" \
+    --location /home/yematech/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
     
     #ram:单位mb ,  disk:单位 gb
     #graphics:vnc,  port:vnc时监听的端口 ,listen:vnc时监听的址址，password:vnc认证密码
