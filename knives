@@ -1,0 +1,2 @@
+#定时把一个文件cp到其它地方进行备份
+0 4 * * * find /data/docker_data/gitlab/data/backups/ | sort -r | head -n 1 | xargs -i cp {} /data_sata/gitlab_bak/  #每天4点cp到sata备份盘 
