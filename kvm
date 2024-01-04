@@ -106,6 +106,19 @@ net.bridge.bridge-nf-call-ip6tables = 0
 net.bridge.bridge-nf-call-iptables = 0
 net.bridge.bridge-nf-call-arptables = 0
 
+#######################################################################
+#安装图形的linux(ubuntu)
+virt-install \
+    --virt-type kvm \
+    --name u_test_1 \
+    --ram 4096 \
+    --vcpus 4 \
+    --cpu host-passthrough,cache.mode=passthrough \
+    --disk path=/kvm/u_test_1.qcow2,size=120,bus=virtio,format=qcow2 \
+    --os-type=ubuntu22.04 \
+    --network bridge=br0,model=virtio \
+    --graphics vnc,password=654321,port=5902,listen=0.0.0.0 \
+    --location /home/yematech/iso/ubuntu-22.04.3-desktop-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
 
 
 
