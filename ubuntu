@@ -25,11 +25,12 @@ network:
 #cat 改最简ip
 cat >> 00-installer-config.yaml << EOF
 network:
+  version: 2
   ethernets:
     enp1s0:
       dhcp4: true
       dhcp6: false
-  version: 2
+  
 
 
 
