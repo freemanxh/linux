@@ -1,0 +1,35 @@
+ubuntu22.04 安装docker
+
+sudo apt update
+sudo apt upgrade
+sudo apt full-upgrade
+
+#删除之前docker残余???????
+sudo apt remove docker-desktop
+rm -r $HOME/.docker/desktop
+sudo rm /usr/local/bin/com.docker.cli
+sudo apt purge docker-desktop
+
+
+#添加docker资源库
+sudo apt install ca-certificates curl gnupg lsb-release
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+#需要进行更新
+sudo apt update
+sudo apt upgrade
+#安装docker
+apt-cache madison docker-ce | awk '{ print $3 }'
+#####需要填写安装的docker 版本#####
+VERSION_STRING=5:23.0.6-1~ubuntu.22.04~jammy
+sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-compose-plugin
+
+#检查docker是否安装成功
+sudo docker run hello-world
+
+#增加docker group
+sudo groupadd docker
+#把当前用户加了docker组中，需要重新登录生效,不建议在生产系统中用非root启动docker
+sudo usermod -aG docker xuhui
