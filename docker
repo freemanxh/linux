@@ -25,7 +25,7 @@ sudo apt-get -y install apt-transport-https ca-certificates curl software-proper
 curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 
-#设置官方地址
+#设置官方地址#主要用上面aliyun的
 #添加docker资源库
 sudo apt install ca-certificates curl gnupg lsb-release
 sudo mkdir -p /etc/apt/keyrings
@@ -48,3 +48,13 @@ sudo docker run hello-world
 sudo groupadd docker
 #把当前用户加了docker组中，需要重新登录生效,不建议在生产系统中用非root启动docker
 sudo usermod -aG docker xuhui
+
+
+
+#############################################################################
+#docker 镜像加速
+sudo vi /etc/docker/daemon.json
+{
+ "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+
