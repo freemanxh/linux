@@ -1,4 +1,4 @@
-ubuntu22.04 安装docker
+#ubuntu22.04 安装docker
 
 sudo apt update
 sudo apt upgrade
