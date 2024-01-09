@@ -10,7 +10,22 @@ rm -r $HOME/.docker/desktop
 sudo rm /usr/local/bin/com.docker.cli
 sudo apt purge docker-desktop
 
+#删除之前的docker
+sudo apt-get autoremove --purge docker docker-ce docker-engine docker.io containerd runc
+dpkg -l | grep docker
+dpkg -l | grep ^rc|awk '{print $2}' | sudo xargs dpkg -P
+sudo apt-get autoremove docker-ce-*
+rm -rf /etc/systemd/system/docker.service.d
+rm -rf /var/lib/docker
+docker --version
 
+#设置aliyun
+#添加docker资源库
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+
+#设置官方地址
 #添加docker资源库
 sudo apt install ca-certificates curl gnupg lsb-release
 sudo mkdir -p /etc/apt/keyrings
