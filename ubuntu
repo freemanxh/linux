@@ -50,3 +50,17 @@ lvmdiskscan  #查看lvm disk
 vgchange -ay #应该是把lvm归组
 lvscan #查看归组的lvm
 mount /dev/ubuntu-vg/lv-root /mnt/disk #mount lvm disk
+
+
+#linux hdd smart
+sudo apt install smartmontools
+smartctl -a <device>: #显示硬盘smart全部信息。
+smartctl -i <device>: #显示是否打开smart
+如果没有开启 smartctl --smart=on --offlineauto=on --saveauto=on <device> 开启smart。   第二种方法: smartctl -s on <device>45
+
+1 Raw_Read_Error_Rate
+5 Reallocated_Sector_Ct
+7 Seek_Error_Rate
+9 Power_On_Hours
+194 Temperature_Celsius
+196 Reallocated_Event_Count
