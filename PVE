@@ -21,10 +21,11 @@
 ethtool -i [enp1s0]
 ethtool enp1s0
 
-enp1s0 ETH0 01:00.0
-enp2s0 ETH1 02:00.0
-enp3s0 ETH2 03:00.0
-enp4s0 ETH3 04:00.0
+系统设备名	外部识别	设备位置	软路由内设备名
+enp1s0		ETH0		01:00.0		eth1(wan)
+enp2s0		ETH1		02:00.0		eth2
+enp3s0		ETH2		03:00.0		eth3
+enp4s0		ETH3		04:00.0		eth0(桥接)
 
 5、关闭端口自动启动 & 重启系统
  
