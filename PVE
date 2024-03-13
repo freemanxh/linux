@@ -12,6 +12,8 @@
 4、reboot
 
 
+#----------------------------------------------------------------------------------
+
 #识别网口
 
 1、apt install ethtool -y
@@ -28,6 +30,17 @@ enp3s0		ETH2		03:00.0		eth3
 enp4s0		ETH3		04:00.0		eth0(桥接)
 
 5、关闭端口自动启动 & 重启系统
+
+#---------------------------------------------------------------------------------
+#PVE系统开启网卡直通
+1、bios中打开VT-d&VMX
+2、/etc/default/grub
+改为这行
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
+如果你的pcie设备分组有问题也可以换成这一行对分组拆分（直通遇到问题都可以尝试这个）
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on pcie_acs_override=downstream"
+3、update-grub
+4、reboot
  
 
 
