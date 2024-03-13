@@ -1,0 +1,39 @@
+#PVE IP修改
+1、/etc/network/interface
+	address xxx.xxx.xxx.xxx
+	gateway xxx.xxx.xxx.xxx
+
+2、/etc/issue
+	https://xxx.xxx.xxx.xxx:8006/
+
+3、/etc/hosts
+	xxx.xxx.xxx.xxx pve.lan pve
+	
+4、reboot
+ 
+
+
+#PVE 换源 8.1
+#1、debian 源
+# 参考: https://mirrors.ustc.edu.cn/help/proxmox.html
+sed -i.bak 's|^deb http://ftp.debian.org|deb https://mirrors.ustc.edu.cn|g' /etc/apt/sources.list
+sed -i 's|^deb http://security.debian.org|deb https://mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
+#apt update && apt-get install -y apt-transport-https ca-certificates  --fix-missing
+
+#2、换pve软件源，需要先注掉/etc/apt/sources.list.d/中企业源中的url
+echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list
+
+#3、CEPH分布式源
+echo "deb https://mirrors.ustc.edu.cn/proxmox/debian/ceph-quincy bookworm no-subscription" > /etc/apt/sources.list.d/ceph.list     #中科大源
+sed -i.bak "s#http://download.proxmox.com/debian#https://mirrors.ustc.edu.cn/proxmox/debian#g" /usr/share/perl5/PVE/CLI/pveceph.pm     #中科大源
+
+apt update && apt-get install -y apt-transport-https ca-certificates  --fix-missing
+apt update && apt dist-upgrade
+
+#4、LXC容器源（CT）
+sed -i.bak "s#http://download.proxmox.com/images#https://mirrors.ustc.edu.cn/proxmox/images#g" /usr/share/perl5/PVE/APLInfo.pm  
+systemctl restart pvedaemon  # 稍等下手动刷新webui 页面
+
+# 删除订阅弹窗
+sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+# 执行完成后，需注销PVE登录后, 重新启动浏览器
