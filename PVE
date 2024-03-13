@@ -41,6 +41,29 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
 GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on pcie_acs_override=downstream"
 3、update-grub
 4、reboot
+
+
+
+#---------------------------------------------------------------------------------
+#PVE安装openwrt
+
+#下载无efi的版本
+https://github.com/firkerword/openwrt-Exclusive/releases
+https://www.right.com.cn/forum/thread-1811791-1-1.html
+https://www.right.com.cn/forum/thread-8316295-1-1.html
+
+
+start...
+1、上传img      /var/lib/vz/template/iso/
+2、创建虚拟机
+3、操作系统->不使用任何介质      磁盘->删除磁盘     cpu 2   内存 2048
+4、先不急着启动
+5、PVE,shell中，qm importdisk [100] /var/lib/vz/template/iso/xxxx.img local-lvm
+6、相应vm中，硬件->未使用的磁盘->添加，可以删除掉cdrom
+7、增加相应的pci设备，就是相应的网卡，桥接的这个不用加了，wan卡记得加第一个
+8、选项->引导顺序->选中刚建的磁盘
+9、启动vm
+10、修改ip  /etc/config/network     先只改lan 及 eth0、bridge的ip ,其它的界面改
  
 
 
