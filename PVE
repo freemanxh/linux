@@ -10,6 +10,23 @@
 	xxx.xxx.xxx.xxx pve.lan pve
 	
 4、reboot
+
+
+#识别网口
+
+1、apt install ethtool -y
+2、打开端口自动启动（web）& 重启系统
+3、lspci | grep -i 'eth'
+4、通过插拔网线识别网口对应设备位置以及系统设备名
+ethtool -i [enp1s0]
+ethtool enp1s0
+
+enp1s0 ETH0 01:00.0
+enp2s0 ETH1 02:00.0
+enp3s0 ETH2 03:00.0
+enp4s0 ETH3 04:00.0
+
+5、关闭端口自动启动 & 重启系统
  
 
 
