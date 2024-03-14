@@ -121,6 +121,21 @@ virt-install \
     --location /home/yematech/iso/ubuntu-22.04.3-desktop-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
 
 
+#######################################################################
+#安装openwrt
+virt-install \
+	--name openwrt \
+	--ram 2048 \
+	--vcpus 2 \
+	--disk path=/opt/openwrt-19.07.4-x86-64-combined-ext4.img \
+	--network bridge=br0,model=e1000  \
+	--force \
+	--import \
+	--autostart \
+	--vnc --vncport=5911 --vnclisten=0.0.0.0
+
+
+
 
 
 #######################################################################
