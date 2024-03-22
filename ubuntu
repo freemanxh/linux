@@ -64,3 +64,74 @@ smartctl -i <device>: #显示是否打开smart
 9 Power_On_Hours
 194 Temperature_Celsius
 196 Reallocated_Event_Count
+
+
+#hdparm 设置硬盘休眠
+#查询硬盘信息
+hdparm -I /dev/sda
+#查询当前电源管理参数
+hapram -B /dev/sdb
+#设置APM参数
+haparm -B 127 /dev/sdb #1-127 允许休眠，128-254 不允许，255 完全关闭电源管理功能
+#设置多长时间后开始休眠，参数是5的倍数，60*5=300 就是5分钟
+hdparm -S 60 /dev/sdb          #12*60=1小时   24*60=2小时
+30 = 2 min 30 sec
+60 = 5 minutes
+120 = 10 minutes
+180 = 15 minutes
+241 = 30 minutes
+242 = 1 hour
+243 = 1.5 hours
+244 = 2 hours
+
+
+#查看状态
+hdparm -C /dev/sdb
+
+
+#进入待机模式
+hdparm -y /dev/sdb
+#进入睡眠模式，注意使用
+hdparm -Y /dev/sdb
+
+#自启动
+/etc/rc.local #需要执行权限
+#!/bin/bash
+hdparm -B 127 -S 242 /dev/disk/by-id/ata-WDC_WD10JPVX-22JC3T0_WD-WX51A84CV1A5
+exit 0
+
+===================================================================================
+
+编辑 /etc/udev/rules.d/69-hdparm.rules，添加下面语句后保存
+
+ACTION=="add", SUBSYSTEM=="block", KERNEL=="sda", RUN+="/usr/bin/hdparm -B 127 -S 0 /dev/sda"
+
+#查看hdparm 配置
+/etc/hdparm.conf
+
+#安装smartctl 
+smartmontools
+smartctl -i -n standby /dev/sda | grep "mode" | awk '{print $4}'
+
+/etc/hdparm.conf
+
+/dev/sdb{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdc{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdd{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sde{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdf{
+        write_cache = on
+        spindown_time = 242
+}
