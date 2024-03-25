@@ -45,6 +45,23 @@ windows(7,8,10,11)系统激活:
 3）、cscript ospp.vbs /act
 ==========================================================
 11、cups https://zhuanlan.zhihu.com/p/450539064
+
+luci-i18n-usb-printer-zh-cn
+hplip-common
+cups-bjnp
+
+p910
+
+
+https://gitee.com/ytwl333/openwrt-musl-cups/tree/master
+
+https://post.smzdm.com/p/a8x390kl/
+
+https://www.youtube.com/watch?v=HC9x4EpBBlU&ab_channel=%E5%A4%A7%E6%96%B9BigFang
+
+https://post.smzdm.com/p/a5ogxd57/
+
+https://blog.csdn.net/Reven_L/article/details/109003476
 ==========================================================
 12、openclash
 clash 先安，下方的没有求证
