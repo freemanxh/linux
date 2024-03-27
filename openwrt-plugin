@@ -50,7 +50,28 @@ luci-i18n-usb-printer-zh-cn
 hplip-common
 cups-bjnp
 
-安装完后
+在以下网站下载相应的补充.ipk文件，上传至路由器/tmp目录内安装 opkg install /tmp/*.ipk
+https://gitee.com/ytwl333/openwrt-musl-cups/tree/master
+1）、修改/etc/cupsd.conf文件: -WebInterface NO 、+WebInterface Yes、 +DefaultLanguage zh
+2）、如果安装了kmod-usb-printers，该模块可能与cups存在兼容问题，请使用下面命令卸载kmod-usb-printers： rmmod usblp.ko;  opkg remove kmod-usb-printer
+3)、chmod 700 /usr/lib/cups/backkend/usb
+
+/etc/cups/cupsd.conf
+<Location />
+  Order Allow,Deny
+  Allow From 127.0.0.1
+  Allow From 192.168.1.0/24 
+</Location>
+
+下方是设置允许访问使用admin账户的IP地址范围，如下设置即可
+<Location /admin>
+  AuthType Basic
+  AuthClass Anonymous
+  Order Allow,Deny
+  Allow From 127.0.0.1
+  Allow From 192.168.1.0/24
+</Location>
+
 service cupsd restart
 
 windows中安装驱动，按名称选择共享打印机，用web printer manager 的url。安装相应的驱动就行。
