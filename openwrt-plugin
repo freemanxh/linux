@@ -46,6 +46,10 @@ windows(7,8,10,11)系统激活:
 ==========================================================
 11、cups https://zhuanlan.zhihu.com/p/450539064
 
+kmod-usb-core
+kmod-usb-storage（三个都安装）
+cups
+
 luci-i18n-usb-printer-zh-cn
 hplip-common
 cups-bjnp
