@@ -74,7 +74,7 @@ https://gitee.com/ytwl333/openwrt-musl-cups/tree/master
 
 service cupsd restart
 
-windows中安装驱动，按名称选择共享打印机，用web printer manager 的url。安装相应的驱动就行。
+windows中安装驱动，按名称选择共享打印机，用web printer manager 的url。安装相应的windows驱动就行。
 
 -----------------------------------------------------------
 
