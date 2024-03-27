@@ -73,6 +73,7 @@ https://gitee.com/ytwl333/openwrt-musl-cups/tree/master
 </Location>
 
 service cupsd restart
+在openwrt中检查启动项，查看cupsd项是否已自启，否则无法开机启动。
 
 windows中安装驱动，按名称选择共享打印机，用web printer manager 的url。安装相应的windows驱动就行。
 
