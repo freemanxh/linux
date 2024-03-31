@@ -6,6 +6,8 @@ opkg update
 
 https://zhuanlan.zhihu.com/p/609066343
 
+0、argon
+
 1、Adbyby plus			广告PB大师
 基本设置：运行模式 plus+模式(只过滤列表内域名结合ABP名单。)
 高级设置：1、每天6点 勾选。2、Adblock Plus规则数据库 手动更新数据库。3、广告订阅  cjx-annoyance   easylistchina   easylist  adblok-list
