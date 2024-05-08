@@ -55,6 +55,6 @@ sudo usermod -aG docker xuhui
 #docker 镜像加速
 sudo vi /etc/docker/daemon.json
 {
- "registry-mirrors": ["https://registry.docker-cn.com"]
+ "registry-mirrors": ["https://registry.docker-cn.com"] #或 "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
 }
 
