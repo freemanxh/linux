@@ -180,4 +180,17 @@ qemu-img create -f qcow2 virtio-test.qcow2 20G
 --location /home/xuhui/virtio-win-drivers.iso,device=cdrom,bus=ide \
 --cdrom /home/xuhui/virtio-win-drivers.iso \
 
+#######################################################################
+clone kvm
+同机
+virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
+
+异机
+1、virsh dumpxml ubuntu_1 > ubuntu_1.xml
+2、cp /data/kvm/ubuntu_1.qcow2 ubuntu_1.qcow2
+3、edit ubuntu1.xml: name,uuid,disk文件位置,mac地址，vnc端口
+4、virsh define ./ubuntu_1.xml
+5、修改网卡设备文件/etc/udev/rules.d/70-persistent-net.rules,可以删除，重启vm
+
+
 
