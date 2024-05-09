@@ -114,6 +114,12 @@ vim /etc/docker/daemon.json
 }
 需要重启docker服务。
 
+如果要更改harbor的相关参数。
+sudo docker compose -f ./docker-compose.yml down
+改harbor.yml文件
+sudo docker compose -f ./docker-compose.yml up -d
+
+
 =====================================================
 #Dockerfile
 FROM openjdk:17-jdk-alpine
