@@ -40,34 +40,7 @@ sudo usermod -aG kvm $USER
 sudo usermod -aG libvirt $USER
 
 -----------------------------------------------------------
-#ubuntu 网卡配网桥
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    enp3s0:
-      dhcp4: false
-      dhcp6: false
-  bridges:
-    br0:
-      interfaces: [enp3s0]
-      dhcp4: false
-      addresses:
-        - 192.168.101.9/24
-      macaddress: 70:85:c2:81:a4:b2
-      routes:
-        - to: default
-          via: 192.168.101.1
-          metric: 100
-      nameservers:
-        addresses:
-          - 192.168.101.1
-          - 61.139.2.69
-          - 8.8.8.8
-      parameters:
-        stp: false
 
--------------------------------------------------
 安装时，报qemu-inst没有权限
 /etc/libvirt/qemu.conf
 
