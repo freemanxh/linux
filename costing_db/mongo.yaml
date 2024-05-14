@@ -1,0 +1,89 @@
+1、要生成集群key
+command: openssl rand -base64 756 >data/mongo/mongod.key
+/home/deploy/docker/base/data/mongo/mongod.key
+文件权限为：400
+文件所属为：lxd:docker
+
+======================================================
+2、配置文件
+ /home/deploy/docker/base/data/mongo/mongod.conf
+systemLog:
+  path: /data/log/mongod.log
+  logAppend: true
+  destination: file
+net:
+  port: 27017
+  bindIpAll: true
+security:
+  keyFile: /etc/mongo/mongod.key
+  authorization: enabled
+  transitionToAuth: true
+storage:
+  dbPath: /data/db
+  directoryPerDB: true
+  engine: wiredTiger
+  wiredTiger:
+    engineConfig:
+      cacheSizeGB: 2
+      journalCompressor: snappy
+      directoryForIndexes: true
+    collectionConfig:
+      blockCompressor: snappy
+    indexConfig:
+      prefixCompression: true
+operationProfiling:
+  mode: slowOp
+  slowOpThresholdMs: 500
+replication:
+  replSetName: mongoRS
+==========================================================
+3、mongo.yaml
+services:
+  mongo1:
+    container_name: mongo1
+    restart: unless-stopped
+    image: mongo:6.0
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs1:/data/db
+      - ./data/mongo/log1:/data/log
+  mongo2:
+    container_name: mongo2
+    restart: unless-stopped
+    image: mongo:6.0
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27018:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs2:/data/db
+      - ./data/mongo/log2:/data/log
+  mongo3:
+    container_name: mongo3
+    restart: unless-stopped
+    image: mongo:6.0
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27019:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs3:/data/db
+      - ./data/mongo/log3:/data/log
