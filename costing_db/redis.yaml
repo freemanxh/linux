@@ -1,0 +1,190 @@
+#redis.yaml
+services:
+  redis:
+    container_name: redis
+    restart: unless-stopped
+    image: redis:7.0
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis/conf:/usr/local/etc/redis
+      - ./data/redis/data:/data
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+
+
+
+##########################################################
+/home/deploy/docker/base/data/redis/data    
+/home/deploy/docker/base/data/redis/conf/redis.conf   
+
+################################ NETWORK ################################
+# 默认本地连接，如果想支持其他机器连接的话，那么把 127.0.0.1 改成 0.0.0.0
+bind 0.0.0.0
+
+# 保护模式，如果改成 no，那么任意机器都可以连接，并且不需要认证
+# 因此我们都会设置成 yes，开启保护模式，通过 bind 和 requirepass 来实现认证登录
+protected-mode yes
+
+# 监听的端口
+port 6379
+
+# 设置 tcp 的 backlog，backlog 其实是一个连接队列，backlog 队列总和 = 未完成三次握手队列 + 已完成三次握手队列
+# 在高并发环境下你需要一个高 backlog 值来避免慢客户端连接问题
+# 注意 linux 内核会将这个值减小到 /proc/sys/net/core/somaxconn 的值
+# 所以需要增大 somaxconn 和 tcp_max_syn_backlog 两个值来达到想要的结果
+tcp-backlog 511
+
+# 当客户端 N 秒没有活动，那么关闭连接，0 表示禁用该功能，一直保持连接
+timeout 3600
+
+# 如果是 redis 集群，那么每隔 300 秒发送一个信息，告诉主节点自己还活着。
+tcp-keepalive 300
+
+# 设置客户端的最大连接数量，默认是 10000
+# maxclients 10000
+################################ NETWORK ################################
+
+################################ GENERAL ################################
+# 是否是以守护进程方式启动，默认是 no，但是一般我们会改成 yes，也就是让 redis 后台启动
+daemonize no
+
+# redis 的 pid 文件
+#pidfile /var/run/redis.pid
+
+# 日志级别：debug、verbose、notice、warning，级别越高，打印的信息越少。
+# 刚开发会选择 debug，会打印详细日志，上线之后选择 notice 或者 warning
+loglevel notice
+
+# 日志名字，不配置名字则控制台打印日志
+logfile ""
+
+# 是否把日志输出到系统日志里面，默认是不输出
+# syslog-enabled no
+
+# 指定日志文件标识，这里是 redis，所以就是 redis.log
+# syslog-ident redis
+
+# 指定 syslog 设备，值可以是 user 或者 local0 到 local7
+# syslog-facility local0
+
+# redis 数据库的数量，默认是 16 个，0-15
+databases 16
+
+# 总是显示 logo
+always-show-logo yes
+
+# 设置密码，一旦设置，再使用 redis-cli 连接的时候就需要指定密码了
+# 否则进去之后无法执行命令，可以使用 redis-cli -a password，但是这样密码就暴露在终端中
+# 尽管能连接，但是 redis 提示你不安全。当然我们还可以进去之后通过 auth password 来设置
+requirepass 123456
+################################ GENERAL ################################
+
+################################ MEMORY MANAGEMENT ################################
+# 最大内存
+# maxmemory <bytes>
+
+# 当你的内存达到极限的时候，肯定要清除缓存，那么你要选择哪种策略
+# volatile-lru：使用 LRU(最近最少使用) 策略移除 keys，只针对过期的 keys
+# allkeys-lru：使用 LRU(最近最少使用) 策略移除 keys
+# volatile-lfu：使用 LFU(最近最不常使用) 策略移除 keys，只针对过期的 keys
+# allkeys-lru：使用 LFU(最近最不常使用) 策略移除 keys
+# volatile-random：随机移除一个过期的 key
+# allkeys-random：随机移除一个任意 key
+# volatile-ttl：移除 ttl值(过期时间) 最少的 key，即最快要过期的 key
+# noeviction：不移除任意 key，仅仅在写操作的时候返回一个 error
+
+# 默认是noeviction
+maxmemory-policy volatile-random
+
+# LRU 和 LFU 都并非精确的算法，而是估算值，因此你可以设置样本的大小，默认是 5 个
+# maxmemory-samples 5
+
+# 从节点是否忽略 maxmemory 配置，针对 redis 集群，并且是从 redis 5 开始才有这个配置
+# replica-ignore-maxmemory yes
+################################ MEMORY MANAGEMENT ################################
+
+################################ SNAPSHOTTING ################################
+# 如果满足以下策略，就会将数据同步到磁盘
+# 900 秒内有 1 次修改、300 秒内有 10 次修改、60 秒内有 10000 次修改
+# 任何一个条件满足，都会将文件写入到磁盘上，当然这数值我们是可以修改的
+# 如果想立刻备份，那么直接在命令行输入 save 即可，会立刻备份，此时会处于阻塞状态，其他所有命令都会阻塞
+# 也可以输入 bgsave 命令进行备份，和 save 不同的是，bgsave 是在后台异步进行快照。
+# 并且还可以通过 lastsave 命令获取最后一次成功执行快照的时间
+
+save 900 1
+save 300 10
+save 60 10000
+
+# 当快照操作出错时停止写数据到磁盘，这样后面写操作均会失败。
+# 比如内存 4GB，但是当前主进程使用的 3GB
+# 那么将数据写入磁盘、fork 一份主进程的时候就又需要额外的 3GB，显然内存不够了，因此保存到硬盘的数据也就失败了
+# 为了不影响后续写操作，可以将该项值改为 no
+stop-writes-on-bgsave-error yes
+
+# 是否压缩，默认是 yes，采用 lzf 方式压缩。
+# 如果不想消耗 CPU 性能来进行文件压缩的话，可以设置为 no，缺点是需要更多的空间来存储文件
+rdbcompression yes
+
+# 对 rdb 数据进行校验, 表示表示写入文件和读取文件时是否开启 RDB 文件检查
+# 检查是否有无损坏，如果在启动是检查发现损坏，则停止启动。
+# 这个过程耗费 CPU 资源，会大概增加 10% 的性能损耗，默认为 yes
+rdbchecksum yes
+
+# rdb 文件名，所以默认是 rdb，并且也是默认开启 rdb 持久化
+# 如果把上面所有的 save 给注释掉，那么就相当于关闭 rdb
+dbfilename dump.rdb
+
+# 路径，这里的路径，如果你不单独指定，那么默认是 redis 的启动路径
+# 也就是你是在哪个目录下启动的 redis-server，那么 dir 就是哪里，但同时这也是 rdb 文件的所在路径
+# 比如我是在 /root 下面执行的 redis-server，那么 dir 就是 /root，同时 rdb 文件的路径也是 /root/dump.rdb
+# append only file 也使用此路径
+dir /data
+################################ SNAPSHOTTING ################################
+
+################################ APPEND ONLY MODE ################################
+# aof 意思是 append only file，我们看到默认是 no，表示关闭，因此持久化默认使用 rdb
+appendonly yes
+
+# 正如 dump.rdb，aof 方式持久化也就一个文件名，默认叫appendonly.aof
+# 另外 aof 和 rdb 持久化方式是可以同时指定的，后面会说
+# 另外我们知道当 redis 启动的时候，会加载文件，读进缓存。
+# 但如果既有 rdb 文件又有 aof 文件，那 redis 会读取哪个呢？实际上会读取 aof 文件
+# 如果 aof 被人乱搞了一通，那么会发现 redis 无法启动，启动了也连接不上。
+# 这个时候有两种办法，一种是删除相应的 aof 文件，但是这样数据就丢了
+# 还有一种方法，就是 redis-server 所在路径 (一般是/usr/local/bin) 中，有一个 redis-check-aof
+# 通过 redis-check-aof --fix appendonly.aof 可以进行修复，同理还有一个 redis-check-rdb，用来修复 rdb 文件。
+appendfilename appendonly.aof
+
+# appendfsync：同步策略，支持三个参数
+# 1.always：同步持久化，每次发生数据变更会被立即记录到磁盘，并完成同步，性能较差但是数据完整性较好
+# 2.everysec：默认设置，异步操作，每秒记录，并完成同步，如果1s内宕机，只丢失1s内的数据
+# 3.no：always 和 everysec 都会和磁盘保持同步，而 no 表示写入 aof 文件但并不等待磁盘同步，也就是写入缓冲区，Linux 中 30s 后自动同步到磁盘
+appendfsync everysec
+
+# 子进程重写 aof 文件时是否不使用 appendfsync（开启子进程重写），用默认 no 即可，也就是使用，可以保证数据安全性
+# 注意这个参数前面有一个 no 了，设置为 yes，才表示不使用 appendfsync，因此这个参数有点绕
+# 如果设置为 yes，此时不会写入磁盘，只是写入缓冲区，因此不会造成阻塞。
+# 但如果 redis 挂掉，在 linux 系统默认设置下，会丢失 30s 的数据
+# 使用 no，表示使用 appendfsync，表示会由子进程重写，这时候和主进程之间会有资源上的竞争，因为都要操作磁盘，所以会有阻塞的情况，但是不会丢失数据。
+no-appendfsync-on-rewrite no
+
+# aof 文件增长比例，指当前 aof 文件比上次重写的增长比例大小。
+# aof 重写即在 aof 文件在一定大小之后，重新将整个内存写到 aof 文件当中，以反映最新的状态(相当于bgsave)。
+# 这样就避免了，aof 文件过大而实际内存数据小的问题 (频繁修改数据问题).
+auto-aof-rewrite-percentage 100
+
+# aof 文件重写最小的文件大小，即最开始 aof 文件必须要达到这个文件时才触发，后面的每次重写就不会根据这个变量了(根据上一次重写完成之后的大小)
+# 此变量仅初始化启动 redis 有效，如果是 redis 恢复时，则 lastSize 等于初始 aof 文件大小.
+auto-aof-rewrite-min-size 64mb
+
+# 指 redis 在恢复时，会忽略最后一条可能存在问题的指令。
+# 默认值 yes。即在 aof 写入时，可能存在指令写错的问题(突然断电，写了一半)
+# 这种情况下，yes 会继续，而 no 会直接恢复失败，用户必须手动修复 AOF 文件才能正常启动 Redis 服务。
+aof-load-truncated yes
+
+# 4.0 开始允许使用 RDB-AOF 混合持久化的方式，结合了两者的优点，通过 aof-use-rdb-preamble 配置项可以打开混合开关
+aof-use-rdb-preamble yes
+################################ APPEND ONLY MODE ################################
+
