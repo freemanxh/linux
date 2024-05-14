@@ -1,0 +1,27 @@
+
+/home/deploy/docker/base/data/mysql/conf.d/custom.cnf
+[mysqld]
+max_connections=1000
+lower_case_table_names=1
+
+/home/deploy/docker/base/data/mysql/data
+
+
+================================================================
+
+mysql.yaml
+services:
+  mysql:
+    container_name: mysql
+    restart: unless-stopped
+    image: mysql:8.2
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 3306:3306
+    cap_add:
+      - CAP_SYS_NICE
+    volumes:
+      - ./data/mysql/conf.d:/etc/mysql/conf.d
+      - ./data/mysql/data:/var/lib/mysql
