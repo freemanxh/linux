@@ -1,4 +1,4 @@
-#redis.yaml
+1、redis.yaml
 services:
   redis:
     container_name: redis
@@ -14,11 +14,13 @@ services:
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
 
-
-##########################################################
+===================================================================
+2、数据目录
 /home/deploy/docker/base/data/redis/data    
-/home/deploy/docker/base/data/redis/conf/redis.conf   
 
+==================================================================
+3、配置文件
+/home/deploy/docker/base/data/redis/conf/redis.conf   
 ################################ NETWORK ################################
 # 默认本地连接，如果想支持其他机器连接的话，那么把 127.0.0.1 改成 0.0.0.0
 bind 0.0.0.0
