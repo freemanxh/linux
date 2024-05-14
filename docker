@@ -1,3 +1,44 @@
+sudo apt update
+sudo apt upgrade
+sudo apt full-upgrade
+
+#添加docker资源库
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+
+
+sudo apt update
+sudo apt upgrade
+#安装docker
+apt-cache madison docker-ce | awk '{ print $3 }'
+
+
+#####需要填写安装的docker 版本#####
+VER_STR=5:23.0.6-1~ubuntu.22.04~jammy
+sudo apt-get install docker-ce=$VER_STR docker-ce-cli=$VER_STR containerd.io docker-compose-plugin
+
+
+
+
+#检查docker是否安装成功
+sudo docker run hello-world
+
+#增加docker group
+sudo groupadd docker
+#把当前用户加了docker组中，需要重新登录生效,不建议在生产系统中用非root启动docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+
+
+=================================================================================================================
+
+
+
+
+
+
 #ubuntu22.04 安装docker
 
 sudo apt update
