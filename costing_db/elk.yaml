@@ -1,0 +1,69 @@
+1、配置文件
+/home/deploy/docker/base/data/pipeline/spring_service.conf
+input {
+    tcp {
+        port => 5044
+        codec => json_lines
+    }
+}
+output {
+  elasticsearch {
+    hosts => ["elasticsearch:9200"]
+    index => "%{key}"
+    id => "%{key}"
+  }
+  stdout{
+        codec => json_lines
+  }
+}
+
+
+=========================================================
+2、elk.yaml
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    restart: unless-stopped
+    image: elasticsearch:8.4.3
+    environment:
+      TZ: Asia/Shanghai
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      xpack.security.enabled: "false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    ports:
+      - 9200:9200
+    volumes:
+      - ./data/elasticsearch/data:/usr/share/elasticsearch/data
+  logstash:
+    depends_on:
+      - elasticsearch
+    container_name: logstash
+    restart: unless-stopped
+    image: logstash:8.4.3
+    environment:
+      TZ: Asia/Shanghai
+      XPACK_MONITORING_ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - 5044:5044
+    volumes:
+      - ./data/logstash/pipeline:/usr/share/logstash/pipeline
+  kibana:
+    depends_on:
+      - elasticsearch
+    container_name: kibana
+    restart: unless-stopped
+    image: kibana:8.4.3
+    environment:
+      TZ: Asia/Shanghai
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+      I18N_LOCALE: zh-CN
+    ports:
+      - 5601:5601
