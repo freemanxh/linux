@@ -59,7 +59,7 @@ net.ipv6.conf.lo.disable_ipv6=1
 sudo sysctl -p
 
 3、如果还是不行
-/etc/rc.local 中，文件改为 755
+/etc/rc.local 中，重点注意 文件改为 755
 
 /etc/sysctl.d
 /etc/init.d/procps restart
