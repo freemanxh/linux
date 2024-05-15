@@ -26,7 +26,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
       - /etc/docker/daemon.json:/etc/docker/daemon.json
-
+###注意目录的权限，保证能读写。这个没有搞明白???
 启动:docker compose -f ./docker-compose.yml up -d
 
 一、解决插件安装问题，加速Jenkins安装插件速度
