@@ -9,6 +9,8 @@ docker pull jenkins/jenkins:lts
 sudo chown root:root /var/run/docker.sock
 sudo chmod o+rw /var/run/docker.sock
 
+先创建/etc/docker/daemon.json 文件
+
 创建文件docker-compose.yml  #jenkins
 version: "3.1"
 services:
