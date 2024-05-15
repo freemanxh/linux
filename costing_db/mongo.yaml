@@ -87,3 +87,80 @@ services:
       - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
       - ./data/mongo/rs3:/data/db
       - ./data/mongo/log3:/data/log
+
+
+=========================================================================
+version: '3.8'
+networks:
+  mongo_net:
+    name: mongo_net
+    driver: bridge
+services:
+  mongo1:
+    container_name: mongo1
+    restart: unless-stopped
+    image: mongo:6.0
+    networks:
+      - mongo_net
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs1:/data/db
+      - ./data/mongo/log1:/data/log
+  mongo2:
+    container_name: mongo2
+    restart: unless-stopped
+    image: mongo:6.0
+    networks:
+      - mongo_net
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27018:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs2:/data/db
+      - ./data/mongo/log2:/data/log
+    depends_on:
+      - mongo1
+  mongo3:
+    container_name: mongo3
+    restart: unless-stopped
+    image: mongo:6.0
+    networks:
+      - mongo_net
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27019:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs3:/data/db
+      - ./data/mongo/log3:/data/log
+    depends_on:
+      - mongo1
+  mongo-init:
+    image: mongo:6.0
+    networks:
+      - mongo_net
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    entrypoint: [ "mongosh", "--host", "mongo1", "--username", "root", "--password", "123456", "--authenticationDatabase", "admin", "--eval", "rs.initiate( { _id: 'mongoRS', members: [ { _id: 0, host: 'mongo1:27017' }, { _id: 1, host: 'mongo2:27017' }, { _id: 2, host: 'mongo3:27017' } ] } )"]
+
