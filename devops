@@ -45,6 +45,7 @@ locale
 git parameter plug-in
 git plug-in
 publish over ssh  #推送文件到远程ssh 服务
+ssh piplie 
 
 
 #把jdk&maven移到jenkins的docker mapping目录
