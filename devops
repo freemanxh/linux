@@ -101,7 +101,7 @@ manage jenkins -> system configuration -> tools
 
 ======================================================
 安装harbor
-解压harbor包，进入目录，cp harbor.yml.tmpl harbor.yml 文件。
+解压harbor包，进入目录，cp harbor.yml.tmpl harbor.yml 文件。 #??? 目前只能用sudo启动。需要后面调整
 vim harbor.yml，改hostname，注掉 https，可改admin的password，安装./install.sh。进行安装，安装一堆docker images 且没有报错。
 http://192.168.0.99  admin Harbor12345， 进harbor系统创建一个公有仓库。
 
