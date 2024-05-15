@@ -57,6 +57,38 @@ chown libvirt-qemu:kvm /kvm
 
 
 
+app:
+virt-install \
+    --virt-type kvm \
+    --name ubu_2204_app \
+    --ram 30720 \
+    --vcpus 8 \
+    --cpu host-passthrough,cache.mode=passthrough \
+    --disk path=/kvm/ubu_2204_app.qcow2,size=140,bus=virtio,format=qcow2 \
+    --os-type=ubuntu22.04 \
+    --network bridge=br0,model=virtio \
+    --graphics none \
+    --extra-args="console=tty0 console=ttyS0,115200" \
+    --location /home/yematech/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
+    
+    
+    
+db:   
+virt-install \
+    --virt-type kvm \
+    --name ubu_2204_db \
+    --ram 20480 \
+    --vcpus 8 \
+    --cpu host-passthrough,cache.mode=passthrough \
+    --disk path=/kvm/ubu_2204_db.qcow2,size=300,bus=virtio,format=qcow2 \
+    --os-type=ubuntu22.04 \
+    --network bridge=br0,model=virtio \
+    --graphics none \
+    --extra-args="console=tty0 console=ttyS0,115200" \
+    --location /home/yematech/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz
+
+
+
 #virt-install
 
 virt-install \
