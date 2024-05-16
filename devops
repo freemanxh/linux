@@ -47,6 +47,7 @@ git plug-in
 publish over ssh  #推送文件到远程ssh 服务
 ssh piplie
 nodejs
+Extended Choice Parameter
 
 
 #把jdk&maven移到jenkins的docker mapping目录
