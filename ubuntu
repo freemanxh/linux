@@ -160,4 +160,9 @@ smartctl -i -n standby /dev/sda | grep "mode" | awk '{print $4}'
 }
 
 ================================================================================
+#重置root密码
+开机后按 shift
+选择 恢复模式 选项， 按e
+改写：ro -> rw single init=/bin/bash，后面的字符删除完
+ctrl+x启动
 
