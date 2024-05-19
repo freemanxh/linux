@@ -228,5 +228,14 @@ virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
 4、virsh define ./ubuntu_1.xml
 5、修改网卡设备文件/etc/udev/rules.d/70-persistent-net.rules,可以删除，重启vm
 
+增加kvm的qcow2的磁盘大小
+1、查看原磁盘大小
+qemu-img info  kvm-win10_add.qcow2
+ls -alh t.qcow2 #查看实际的大小
+2、创建磁盘（qcow2）
+qemu-img create -f qcow2 t.qcow2 1G
+3、增加
+qemu-img resize kvm-win10_add.qcow2 +10G
+
 
 
