@@ -15,8 +15,8 @@ apt-cache madison docker-ce | awk '{ print $3 }'
 
 
 #####需要填写安装的docker 版本#####
-VER_STR=5:23.0.6-1~ubuntu.22.04~jammy
-sudo apt-get install docker-ce=$VER_STR docker-ce-cli=$VER_STR containerd.io docker-compose-plugin
+VS=5:23.0.6-1~ubuntu.22.04~jammy
+sudo apt-get install docker-ce=$VS docker-ce-cli=$VS containerd.io docker-compose-plugin
 
 
 
