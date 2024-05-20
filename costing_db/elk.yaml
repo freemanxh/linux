@@ -1,5 +1,7 @@
 1、配置文件
-# mkdir -p logstash/pipeline/
+# mkdir -p data/logstash/pipeline/
+注意目录权限 logstash/ elasticsearch/ 为chown 都为 yematech:docker ,chmod 777 elasticsearch
+
 /home/deploy/docker/base/data/logstash/pipeline/spring_service.conf
 input {
     tcp {
