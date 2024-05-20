@@ -1,4 +1,5 @@
 1、配置文件
+# mkdir -p logstash/pipeline/
 /home/deploy/docker/base/data/logstash/pipeline/spring_service.conf
 input {
     tcp {
