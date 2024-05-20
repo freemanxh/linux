@@ -1,3 +1,5 @@
+#seata.yml
+
 services:
   seata-server:
     container_name: seata
