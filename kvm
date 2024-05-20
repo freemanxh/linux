@@ -181,7 +181,7 @@ opkg update && opkg install luci-i18n-base-zh-cn
 
 
 #######################################################################
-#安装windows
+#安装windows  ubuntu22.04 server 测试通过
 virt-install \
 --virt-type kvm \
 --name win10 \
@@ -229,7 +229,7 @@ virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
 5、修改网卡设备文件/etc/udev/rules.d/70-persistent-net.rules,可以删除，重启vm
 
 =======================================================================
-#护展虚拟机的磁盘容量 https://juejin.cn/post/6844903839653429256
+#护展虚拟机的磁盘容量(lvm格式) https://juejin.cn/post/6844903839653429256
 1、start vm
 2、virsh domblklist vm_name #查看已有磁盘 [vm_name]
 3、qemu-img create -f qcow2 node1_data.qcow2 80G #[node1_data.qcow2]
