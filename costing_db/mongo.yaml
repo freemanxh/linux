@@ -1,3 +1,4 @@
+https://www.cnblogs.com/evescn/p/16203350.html
 1、要生成集群key
   mkdir -p data/mongodb
   openssl rand -base64 756 > ./data/mongodb/mongodb.key
@@ -99,11 +100,12 @@ networks:
     name: mongo_net
     driver: bridge
 ###############################################################
-3、   
+3、创建mongod
 docker-compose up -d
 
 4、配置集群
 进入mongo1
+docker exec -it mongo1 bash
  mongosh -u root -p 123456
 # docker exec -it mongo1 mongosh
 
