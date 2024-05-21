@@ -52,9 +52,17 @@ cfg=rs.conf()
 rs.status()
 rs.printReplicationInfo()
 
-4、扩展硬盘、以及 改cpu数量、内存大小（20G=20480000）30G=30720000
+4、改docker配置，并重启docker
+vim /etc/docker/daemon.json
+{
+	"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"],
+	"insecure-registries": ["192.168.0.99:80"]
+}
+systemctl restart docker
+
+5、扩展硬盘、以及 改cpu数量、内存大小（20G=20480000）30G=30720000
 virsh attach-disk ubu_2204_origin_db_trail /kvm/ubu_2204_origin_db_trail_2.qcow2 vdb --cache none --subdriver qcow2 --persistent
 sudo lvextend -L +99.9G /dev/ubuntu-vg/lv-root
 
-5、改密码
+6、改密码
 
