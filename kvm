@@ -230,11 +230,13 @@ virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
 
 =======================================================================
 #护展虚拟机的磁盘容量(lvm格式) https://juejin.cn/post/6844903839653429256
+#以下在host中
 1、start vm
 2、virsh domblklist vm_name #查看已有磁盘 [vm_name]
 3、qemu-img create -f qcow2 node1_data.qcow2 80G #[node1_data.qcow2]
 4、qemu-img info node1_data.qcow2 #查看文件
 5、virsh attach-disk ubu_2204_app /kvm/ubu_2204_app_data.qcow2 vdb --cache none --subdriver qcow2 --persistent  #把盘添加到vm中 [ubu_2204_app],[/kvm/ubu_2204_app_data.qcow2]
+#以下在vm中
 6、lsblk
 7、df -Th /   #查看虚拟机当中当前文件系统容量
 8、lvdisplay
