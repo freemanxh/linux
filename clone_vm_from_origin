@@ -1,1 +1,60 @@
 
+virt-clone -o ubu_2204_origin_db -n ubu_2204_origin_db_trail -f /kvm/ubu_2204_origin_db_trail.qcow2
+
+
+1、改hostname  /etc/hostname
+2、改fixed ip
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp1s0:
+      dhcp4: false
+      dhcp6: false
+      addresses: 
+        -  192.168.0.201/24
+      routes: 
+        -  to: default
+           via: 192.168.0.1
+      nameservers:
+        addresses:
+          -  192.168.0.1
+          -  114.114.114.114
+          -  8.8.8.8
+          
+          
+
+3、如果是db,需要配置集群，app服务器不用执行此条
+
+
+进入mongo1
+docker exec -it mongo1 bash
+mongosh -u root -p 123456
+# docker exec -it mongo1 mongosh
+
+
+注：单主机模式部署 3副本集 添加节点必须使用宿主机IP+PORT，
+使用容器内部IP的情况下代码层面连接到 mongodb-cluster 集群，
+获取到的集群地址信息为 docker 容器内部 IP，
+若业务代码没有部署在 mongodb 主机则无法访问
+
+
+#注意ip
+config={_id:"rs0",members:[ 
+{_id:0,host:"192.168.0.52:27017"}, 
+{_id:1,host:"192.168.0.52:27018"}, 
+{_id:2,host:"192.168.0.52:27019"}] 
+}
+
+rs.initiate(config)
+cfg=rs.conf()
+
+rs.status()
+rs.printReplicationInfo()
+
+4、扩展硬盘、以及 改cpu数量、内存大小（20G=20480000）
+virsh attach-disk ubu_2204_origin_db_trail /kvm/ubu_2204_origin_db_trail_2.qcow2 vdb --cache none --subdriver qcow2 --persistent
+sudo lvextend -L +99.9G /dev/ubuntu-vg/lv-root
+
+5、改密码
+
