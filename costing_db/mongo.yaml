@@ -1,9 +1,162 @@
 1、要生成集群key
-mkdir -p data/mongo
-command: openssl rand -base64 756 >data/mongo/mongod.key
-/home/deploy/docker/base/data/mongo/mongod.key
-文件权限为：400
-文件所属为：lxd:docker
+  mkdir -p data/mongodb
+  openssl rand -base64 756 > ./data/mongodb/mongodb.key
+  chmod 400 mongodb.key
+  sudo chown lxd:lxd mongodb.key
+
+  mkdir ./data/mongodb/{db{1,2,3},log{1,2,3},configdb{1,2,3}} -pv
+
+2、mongodb.yml
+version: "3"
+
+services:
+  #主节点
+  mongodb1:
+    image: mongo:6.0
+    container_name: mongo1
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: mongod --replSet rs0 --keyFile /mongodb.key
+    #command: --config /etc/mongo/mongod.conf
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data/mongodb/db1:/data/db
+      - ./data/mongodb/log1:/data/log
+      - ./data/mongodb/configdb1:/data/configdb
+      - ./data/mongodb/mongodb.key:/mongodb.key:ro
+      #- ./data/mongodb/mongod.conf:/etc/mongo/mongod.conf:ro
+    networks:
+      - mongo_net
+    entrypoint:
+      - bash
+      - -c
+      - |
+        chmod 400 /mongodb.key
+        chown 999:999 /mongodb.key
+        exec docker-entrypoint.sh $$@
+  # 副节点
+  mongodb2:
+    image: mongo:6.0
+    container_name: mongo2
+    restart: unless-stopped
+    ports:
+      - 27018:27017
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: mongod --replSet rs0 --keyFile /mongodb.key
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./data/mongodb/db2:/data/db
+      - ./data/mongodb/log2:/data/log
+      - ./data/mongodb/configdb2:/data/configdb
+      - ./data/mongodb/mongodb.key:/mongodb.key:ro
+    networks:
+      - mongo_net
+    entrypoint:
+      - bash
+      - -c
+      - |
+        chmod 400 /mongodb.key
+        chown 999:999 /mongodb.key
+        exec docker-entrypoint.sh $$@
+  # 副节点
+  mongodb3:
+    image: mongo:6.0
+    container_name: mongo3
+    restart: unless-stopped
+    ports:
+      - 27019:27017
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: mongod --replSet rs0 --keyFile /mongodb.key
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./data/mongodb/db3:/data/db
+      - ./data/mongodb/log3:/data/log
+      - ./data/mongodb/configdb3:/data/configdb
+      - ./data/mongodb/mongodb.key:/mongodb.key:ro
+    networks:
+      - mongo_net
+    entrypoint:
+      - bash
+      - -c
+      - |
+        chmod 400 /mongodb.key
+        chown 999:999 /mongodb.key
+        exec docker-entrypoint.sh $$@
+networks:
+  mongo_net:
+    name: mongo_net
+    driver: bridge
+###############################################################
+3、   
+docker-compose up -d
+
+4、配置集群
+进入mongo1
+ mongosh -u root -p 123456
+# docker exec -it mongo1 mongosh
+
+
+注：单主机模式部署 3副本集 添加节点必须使用宿主机IP+PORT，
+使用容器内部IP的情况下代码层面连接到 mongodb-cluster 集群，
+获取到的集群地址信息为 docker 容器内部 IP，
+若业务代码没有部署在 mongodb 主机则无法访问
+
+
+
+config={_id:"rs0",members:[ 
+{_id:0,host:"192.168.0.192:27017"}, 
+{_id:1,host:"192.168.0.192:27018"}, 
+{_id:2,host:"192.168.0.192:27019"}] 
+}
+
+rs.initiate(config)
+cfg=rs.conf()
+
+rs.status()
+rs.printReplicationInfo()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ======================================================
 2、配置文件
