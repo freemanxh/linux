@@ -2,10 +2,11 @@ https://www.cnblogs.com/evescn/p/16203350.html
 1、要生成集群key
   mkdir -p data/mongodb
   openssl rand -base64 756 > ./data/mongodb/mongodb.key
-  chmod 400 mongodb.key
-  sudo chown lxd:lxd mongodb.key
-
+  chmod 400 ./data/mongodb/mongodb.key
   mkdir ./data/mongodb/{db{1,2,3},log{1,2,3},configdb{1,2,3}} -pv
+  sudo chown lxd:lxd ./data/mongodb/mongodb.key
+
+  
 
 2、mongodb.yml
 version: "3"
@@ -103,10 +104,11 @@ networks:
 3、创建mongod
 docker-compose up -d
 
-4、配置集群
+
+4、配置集群   (如果在origin中不要做，不然不好改init配置，这个现在不明白)
 进入mongo1
 docker exec -it mongo1 bash
- mongosh -u root -p 123456
+mongosh -u root -p 123456
 # docker exec -it mongo1 mongosh
 
 
