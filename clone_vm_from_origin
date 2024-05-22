@@ -52,7 +52,14 @@ cfg=rs.conf()
 rs.status()
 rs.printReplicationInfo()
 
-4、改docker配置，并重启docker
+
+
+导数据库时，需要注意相应的字符集。
+有一个mysql的存储过程
+
+4、如果是app，需要改pricing/data/share_files的可写权限。
+
+5、改docker配置，并重启docker
 vim /etc/docker/daemon.json
 {
 	"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"],
@@ -60,9 +67,12 @@ vim /etc/docker/daemon.json
 }
 systemctl restart docker
 
-5、扩展硬盘、以及 改cpu数量、内存大小（20G=20480000）30G=30720000
+6、扩展硬盘、以及 改cpu数量、内存大小（20G=20480000）30G=30720000
 virsh attach-disk ubu_2204_origin_db_trail /kvm/ubu_2204_origin_db_trail_2.qcow2 vdb --cache none --subdriver qcow2 --persistent
 sudo lvextend -L +99.9G /dev/ubuntu-vg/lv-root
 
-6、改密码
+7、改密码
+
+
+
 
