@@ -63,7 +63,11 @@ rs.printReplicationInfo()
 vim /etc/docker/daemon.json
 {
 	"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"],
-	"insecure-registries": ["192.168.0.99:80"]
+	"insecure-registries": ["192.168.0.99:80"],
+	"log-opts": {
+ 	   "max-size": "100M",
+	   "max-file": "10"
+ 	}
 }
 systemctl restart docker
 
