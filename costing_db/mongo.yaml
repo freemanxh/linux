@@ -4,10 +4,9 @@
   openssl rand -base64 756 > ./data/mongo/mongod.key
   chmod 400 ./data/mongo/mongod.key
   mkdir ./data/mongo/{rs{1,2,3},log{1,2,3}} -pv
-  sudo chown lxd:lxd ./data/mongo/mongod.key
+  sudo chown lxd:lxd ./data/mongo/mongod.key 
   sudo chown -R lxd:lxd ./data/mongo/rs*
   sudo chown -R lxd:lxd ./data/mongo/log*
-
 
 2、配置文件
  /home/deploy/docker/base/data/mongo/mongod.conf
@@ -40,6 +39,9 @@ operationProfiling:
   slowOpThresholdMs: 500
 replication:
   replSetName: mongoRS
+
+
+sudo chown lxd:lxd ./data/mongo/mongod.conf
 ==========================================================
 3、mongo.yaml
 #需要把docker/base/data/mongo/下面的rs*,log*目录的权限全放开
@@ -136,7 +138,7 @@ mongosh -u root -p 123456
 
 
 
-config={_id:"rs0",members:[ 
+config={_id:"mongoRS",members:[ 
 {_id:0,host:"192.168.0.192:27017"}, 
 {_id:1,host:"192.168.0.192:27018"}, 
 {_id:2,host:"192.168.0.192:27019"}] 
