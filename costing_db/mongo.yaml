@@ -169,6 +169,8 @@ rs.printReplicationInfo()
   chmod 400 ./data/mongo/mongod.key
   mkdir ./data/mongo/{rs{1,2,3},log{1,2,3}} -pv
   sudo chown lxd:lxd ./data/mongo/mongod.key
+  sudo chown -R lxd:lxd ./data/mongo/rs*
+  sudo chown -R lxd:lxd ./data/mongo/log*
 
 
 2、配置文件
