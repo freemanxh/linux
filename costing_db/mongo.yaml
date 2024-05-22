@@ -1,3 +1,205 @@
+
+1、要生成集群key
+  mkdir -p data/mongo
+  openssl rand -base64 756 > ./data/mongo/mongod.key
+  chmod 400 ./data/mongo/mongod.key
+  mkdir ./data/mongo/{rs{1,2,3},log{1,2,3}} -pv
+  sudo chown lxd:lxd ./data/mongo/mongod.key
+  sudo chown -R lxd:lxd ./data/mongo/rs*
+  sudo chown -R lxd:lxd ./data/mongo/log*
+
+
+2、配置文件
+ /home/deploy/docker/base/data/mongo/mongod.conf
+systemLog:
+  path: /data/log/mongod.log
+  logAppend: true
+  destination: file
+net:
+  port: 27017
+  bindIpAll: true
+security:
+  keyFile: /etc/mongo/mongod.key
+  authorization: enabled
+  transitionToAuth: true
+storage:
+  dbPath: /data/db
+  directoryPerDB: true
+  engine: wiredTiger
+  wiredTiger:
+    engineConfig:
+      cacheSizeGB: 2
+      journalCompressor: snappy
+      directoryForIndexes: true
+    collectionConfig:
+      blockCompressor: snappy
+    indexConfig:
+      prefixCompression: true
+operationProfiling:
+  mode: slowOp
+  slowOpThresholdMs: 500
+replication:
+  replSetName: mongoRS
+==========================================================
+3、mongo.yaml
+#需要把docker/base/data/mongo/下面的rs*,log*目录的权限全放开
+
+version: '3.8'
+networks:
+  mongo_net:
+    name: mongo_net
+    driver: bridge
+services:
+  mongo1:
+    container_name: mongo1
+    restart: unless-stopped
+    image: mongo:6.0
+
+    networks:
+      - mongo_net
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs1:/data/db
+      - ./data/mongo/log1:/data/log
+  mongo2:
+    container_name: mongo2
+    restart: unless-stopped
+    image: mongo:6.0
+
+    networks:
+      - mongo_net
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27018:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs2:/data/db
+      - ./data/mongo/log2:/data/log
+    depends_on:
+      - mongo1
+  mongo3:
+    container_name: mongo3
+    restart: unless-stopped
+    image: mongo:6.0
+
+    networks:
+      - mongo_net
+    environment:
+      TZ: Asia/Shanghai
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27019:27017
+    volumes:
+      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
+      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
+      - ./data/mongo/rs3:/data/db
+      - ./data/mongo/log3:/data/log
+    depends_on:
+      - mongo1
+  mongo-init:
+    image: mongo:6.0
+    networks:
+      - mongo_net
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    entrypoint: [ "mongosh", "--host", "mongo1", "--username", "root", "--password", "123456", "--authenticationDatabase", "admin", "--eval", "rs.initiate( { _id: 'mongoRS', members: [ { _id: 0, host: 'mongo1:27017' }, { _id: 1, host: 'mongo2:27017' }, { _id: 2, host: 'mongo3:27017' } ] } )"]
+
+4、登入mongo1 init
+
+进入mongo1
+docker exec -it mongo1 bash
+mongosh -u root -p 123456
+# docker exec -it mongo1 mongosh
+
+
+注：单主机模式部署 3副本集 添加节点必须使用宿主机IP+PORT，
+使用容器内部IP的情况下代码层面连接到 mongodb-cluster 集群，
+获取到的集群地址信息为 docker 容器内部 IP，
+若业务代码没有部署在 mongodb 主机则无法访问
+
+
+
+config={_id:"rs0",members:[ 
+{_id:0,host:"192.168.0.192:27017"}, 
+{_id:1,host:"192.168.0.192:27018"}, 
+{_id:2,host:"192.168.0.192:27019"}] 
+}
+
+rs.initiate(config)
+cfg=rs.conf()
+
+rs.status()
+rs.printReplicationInfo()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 https://www.cnblogs.com/evescn/p/16203350.html
 1、要生成集群key
   mkdir -p data/mongodb
@@ -163,127 +365,6 @@ rs.printReplicationInfo()
 
 
 ======================================================
-1、要生成集群key
-  mkdir -p data/mongo
-  openssl rand -base64 756 > ./data/mongo/mongod.key
-  chmod 400 ./data/mongo/mongod.key
-  mkdir ./data/mongo/{rs{1,2,3},log{1,2,3}} -pv
-  sudo chown lxd:lxd ./data/mongo/mongod.key
-  sudo chown -R lxd:lxd ./data/mongo/rs*
-  sudo chown -R lxd:lxd ./data/mongo/log*
-
-
-2、配置文件
- /home/deploy/docker/base/data/mongo/mongod.conf
-systemLog:
-  path: /data/log/mongod.log
-  logAppend: true
-  destination: file
-net:
-  port: 27017
-  bindIpAll: true
-security:
-  keyFile: /etc/mongo/mongod.key
-  authorization: enabled
-  transitionToAuth: true
-storage:
-  dbPath: /data/db
-  directoryPerDB: true
-  engine: wiredTiger
-  wiredTiger:
-    engineConfig:
-      cacheSizeGB: 2
-      journalCompressor: snappy
-      directoryForIndexes: true
-    collectionConfig:
-      blockCompressor: snappy
-    indexConfig:
-      prefixCompression: true
-operationProfiling:
-  mode: slowOp
-  slowOpThresholdMs: 500
-replication:
-  replSetName: mongoRS
-==========================================================
-3、mongo.yaml
-#需要把docker/base/data/mongo/下面的rs*,log*目录的权限全放开
-
-version: '3.8'
-networks:
-  mongo_net:
-    name: mongo_net
-    driver: bridge
-services:
-  mongo1:
-    container_name: mongo1
-    restart: unless-stopped
-    image: mongo:6.0
-
-    networks:
-      - mongo_net
-    environment:
-      TZ: Asia/Shanghai
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 123456
-    command: --config /etc/mongo/mongod.conf
-    ports:
-      - 27017:27017
-    volumes:
-      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
-      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
-      - ./data/mongo/rs1:/data/db
-      - ./data/mongo/log1:/data/log
-  mongo2:
-    container_name: mongo2
-    restart: unless-stopped
-    image: mongo:6.0
-
-    networks:
-      - mongo_net
-    environment:
-      TZ: Asia/Shanghai
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 123456
-    command: --config /etc/mongo/mongod.conf
-    ports:
-      - 27018:27017
-    volumes:
-      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
-      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
-      - ./data/mongo/rs2:/data/db
-      - ./data/mongo/log2:/data/log
-    depends_on:
-      - mongo1
-  mongo3:
-    container_name: mongo3
-    restart: unless-stopped
-    image: mongo:6.0
-
-    networks:
-      - mongo_net
-    environment:
-      TZ: Asia/Shanghai
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 123456
-    command: --config /etc/mongo/mongod.conf
-    ports:
-      - 27019:27017
-    volumes:
-      - ./data/mongo/mongod.key:/etc/mongo/mongod.key:ro
-      - ./data/mongo/mongod.conf:/etc/mongo/mongod.conf:ro
-      - ./data/mongo/rs3:/data/db
-      - ./data/mongo/log3:/data/log
-    depends_on:
-      - mongo1
-  mongo-init:
-    image: mongo:6.0
-    networks:
-      - mongo_net
-    depends_on:
-      - mongo1
-      - mongo2
-      - mongo3
-    entrypoint: [ "mongosh", "--host", "mongo1", "--username", "root", "--password", "123456", "--authenticationDatabase", "admin", "--eval", "rs.initiate( { _id: 'mongoRS', members: [ { _id: 0, host: 'mongo1:27017' }, { _id: 1, host: 'mongo2:27017' }, { _id: 2, host: 'mongo3:27017' } ] } )"]
 
 ===============================================================
 
