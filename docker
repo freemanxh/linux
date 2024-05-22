@@ -97,6 +97,10 @@ newgrp docker
 #docker 镜像加速
 sudo vi /etc/docker/daemon.json
 {
- "registry-mirrors": ["https://registry.docker-cn.com"] #或 "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+ "registry-mirrors": ["https://registry.docker-cn.com"], #或 "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+ "log-opts": {
+    "max-size": "100M",
+    "max-file": "10"
+  }
 }
 
