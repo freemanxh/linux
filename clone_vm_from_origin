@@ -81,11 +81,15 @@ sudo lvextend -L +99.9G /dev/ubuntu-vg/lv-root
 8、改mongodb的ip
 mongosh -u root -p 123456
 
-admin> cfg=rs.conf()
-admin> cfg.members[0].host='192.168.0.54:27017'
-admin> cfg.members[1].host='192.168.0.54:27018'
-admin> cfg.members[2].host='192.168.0.54:27019'
-admin> rs.reconfig(cfg,{force:true})
+cfg=rs.conf()
+
+cfg.members[0].host='192.168.0.48:27017'
+cfg.members[1].host='192.168.0.48:27018'
+cfg.members[2].host='192.168.0.48:27019'
+
+rs.reconfig(cfg,{force:true})
+
+rs.status()
 
 
 
