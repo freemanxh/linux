@@ -1,0 +1,34 @@
+1、安装 acme
+curl https://gitee.com/neilpang/acme.sh | sh 
+
+git clone https://gitee.com/neilpang/acme.sh.git
+sudo apt install socat
+./acme.sh --install -m 183618@qq.com
+alias acme.sh=~/.acme.sh/acme.sh
+
+2、证书申请
+acme.sh --issue --dns -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
+增加txt解析 #需要把返回字符串增加到域名管理系统中
+acme.sh --renew -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+3、自动登录续签（还没有通过）
+用户登录名称 
+
+acme@1163605441248015.onaliyun.com
+AccessKey ID xxxx
+AccessKey Secret xxxx
+
+export Ali_Key="<key>"
+export Ali_Secret="<secret>"
+
+./acme.sh --issue --dns dns_ali -d yematech.cc -d *.yematech.cc
+
+The Ali_Key and Ali_Secret will be saved in ~/.acme.sh/account.conf and will be reused when needed.
+
+4、copy出相应的证书
+acme.sh --install-cert -d *.yematech.cc \
+--key-file       /home/yematech/yematech_cc/nginx/key.pem  \
+--fullchain-file /home/yematech/yematech_cc/nginx/cert.pem 
+
+\
+--reloadcmd     "service nginx force-reload"
