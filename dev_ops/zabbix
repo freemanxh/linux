@@ -1,0 +1,91 @@
+
+1、注意建相应的目录
+mkdir -p zabbix/{data,alertscripts}
+mkdir -p zabbix/mysql/{data,conf}
+
+2、zabbix.yaml
+
+version: '3.9'
+networks:
+  zbx:
+    driver: bridge
+services:
+  zabbix-mysql:
+    image: mysql:8.0.30
+      #hostname: mysql
+    container_name: mysql
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+        # - ./zabbix/mysql/conf/my.cnf:/etc/my.cnf
+      - ./zabbix/mysql/data:/var/lib/mysql
+    restart: always
+    privileged: true
+    command: --character-set-server=utf8 --collation-server=utf8_bin
+    environment:
+      - MYSQL_ROOT_PASSWORD=Egfi9Jnn9BzJf3Q6
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix
+      - TZ=Asia/Shanghai
+        #      - LANG=en_US.UTF-8
+    ports:
+      - 3306:3306
+    networks:
+      - zbx
+
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:6.4.1-centos
+    container_name: zabbix-server
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./zabbix/data:/var/lib/zabbix/
+      - ./zabbix/alertscripts:/usr/lib/zabbix/alertscripts:ro
+    restart: always
+    privileged: true
+    depends_on:
+      - zabbix-mysql
+    environment:
+      - DB_SERVER_HOST=zabbix-mysql
+      - DB_SERVER_PORT=3306
+      - MYSQL_ROOT_PASSWORD=Egfi9Jnn9BzJf3Q6
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix
+      - ZBX_CACHESIZE=1G
+      - ZBX_HISTORYCACHESIZE=512M
+      - ZBX_HISTORYINDEXCACHESIZE=32M
+      - ZBX_TRENDCACHESIZE=256M
+      - ZBX_VALUECACHESIZE=256M
+      - ZBX_STARTPINGERS=64
+      - ZBX_IPMIPOLLERS=1
+      - ZBX_ENABLE_SNMP_TRAPS=true
+      - ZBX_STARTTRAPPERS=1
+    ports:
+      - 10051:10051
+    networks:
+      - zbx
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:6.4.1-centos
+    container_name: zabbix-web
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    privileged: true
+    depends_on:
+      - zabbix-mysql
+    environment:
+      - ZBX_SERVER_NAME=Zabbix 6.0
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_PORT=10051
+      - DB_SERVER_HOST=zabbix-mysql
+      - DB_SERVER_PORT=3306
+      - MYSQL_ROOT_PASSWORD=Egfi9Jnn9BzJf3Q6
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix
+      - PHP_TZ=Asia/Shanghai
+    ports:
+      - 80:8080
+    networks:
+      - zbx
