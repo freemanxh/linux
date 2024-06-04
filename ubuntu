@@ -43,6 +43,7 @@ sudo timedatectl set-ntp true  #手动设置时区同步
 
 sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
 
+
 #禁用swap
 在/etc/fstab中注掉swap.img这行
 
