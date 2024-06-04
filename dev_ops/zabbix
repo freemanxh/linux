@@ -1,5 +1,6 @@
 Admin
 zabbix
+需要下此文件 DejaVuSans.ttf
 
 1、注意建相应的目录
 mkdir -p zabbix/{data,alertscripts}
@@ -72,6 +73,7 @@ services:
     container_name: zabbix-web
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./zabbix/fonts/DejaVuSans.ttf:/usr/share/zabbix/assets/fonts/DejaVuSans.ttf
     restart: always
     privileged: true
     depends_on:
