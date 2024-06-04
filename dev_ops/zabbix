@@ -1,3 +1,5 @@
+Admin
+zabbix
 
 1、注意建相应的目录
 mkdir -p zabbix/{data,alertscripts}
