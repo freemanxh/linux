@@ -218,7 +218,7 @@ qemu-img create -f qcow2 virtio-test.qcow2 20G
 
 #######################################################################
 clone kvm
-同机
+同机，需要shutdown
 virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
 
 异机
