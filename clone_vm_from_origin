@@ -24,7 +24,7 @@ network:
           
           
 
-3、如果是db,需要配置集群，app服务器不用执行此条
+3、如果是db,需要配置集群，如是是app服务器，需要把docker的容器都给delele掉，docker ps -a | awk '{print $1}' | xargs docker rm 
 
 
 进入mongo1
