@@ -3,6 +3,7 @@
   mkdir -p data/mongo
   openssl rand -base64 756 > ./data/mongo/mongod.key
   chmod 400 ./data/mongo/mongod.key
+  #如果为centos离线部署，需要把lxd改为polkitd  (对应的为999的用户)
   mkdir ./data/mongo/{rs{1,2,3},log{1,2,3}} -pv
   sudo chown lxd:lxd ./data/mongo/mongod.key 
   sudo chown -R lxd:lxd ./data/mongo/rs*
