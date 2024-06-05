@@ -1,5 +1,10 @@
 #centos7.9 docker offline install
 
+关掉selinux
+setenforce 0 
+sed -i s#SELINUX=enforcing#SELINUX=disabled# /etc/selinux/config
+
+
 1、Docker 运行在 CentOS 7 上,要求系统为64位、系统内核版本为 3.10 以上。
   uname -r
 2、cat /etc/redhat-release 
