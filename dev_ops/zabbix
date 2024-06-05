@@ -1,6 +1,7 @@
 Admin
 zabbix
 需要下此文件 DejaVuSans.ttf
+注意MYSQL_ROOT_PASSWORD不能太简单
 
 1、注意建相应的目录
 mkdir -p zabbix/{data,alertscripts}
