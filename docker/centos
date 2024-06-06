@@ -54,7 +54,7 @@ systemctl status docker
 
 mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
-dockeer-compose --version
+docker-compose --version
 
 
 #导出docker镜像
