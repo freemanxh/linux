@@ -1,1 +1,341 @@
+#改ip 
 
+cat >> 00-installer-config.yaml << EOF
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp1s0:
+      dhcp4: false
+      dhcp6: false
+      addresses: 
+        -  192.168.0.201/24
+      routes: 
+        -  to: default
+           via: 192.168.0.1
+      nameservers:
+        addresses:
+          -  192.168.0.1
+          -  114.114.114.114
+          -  8.8.8.8
+
+
+
+
+#cat 改最简ip
+cat >> 00-installer-config.yaml << EOF
+network:
+  version: 2
+  ethernets:
+    enp1s0:
+      dhcp4: true
+      dhcp6: false
+  
+
+
+
+#设置系统时区
+timedatectl
+
+sudo systemctl status systemd-timesyncd.service
+
+sudo timedatectl set-ntp true  #手动设置时区同步#改ip 
+
+cat >> 00-installer-config.yaml << EOF
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp1s0:
+      dhcp4: false
+      dhcp6: false
+      addresses: 
+        -  192.168.0.201/24
+      routes: 
+        -  to: default
+           via: 192.168.0.1
+      nameservers:
+        addresses:
+          -  192.168.0.1
+          -  114.114.114.114
+          -  8.8.8.8
+
+
+
+
+#cat 改最简ip
+cat >> 00-installer-config.yaml << EOF
+network:
+  version: 2
+  ethernets:
+    enp1s0:
+      dhcp4: true
+      dhcp6: false
+  
+
+
+
+#设置系统时区
+timedatectl
+
+sudo systemctl status systemd-timesyncd.service
+
+sudo timedatectl set-ntp true  #手动设置时区同步
+
+sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
+
+
+#禁用swap
+在/etc/fstab中注掉swap.img这行
+
+
+#禁用ipv6
+1、临时
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
+2、固化
+/etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+net.ipv6.conf.lo.disable_ipv6=1
+
+sudo sysctl -p
+
+3、如果还是不行
+/etc/rc.local 中，重点注意 文件改为 755
+
+/etc/sysctl.d
+/etc/init.d/procps restart
+
+exit 0
+==================================================================
+
+# mount lvm disk
+fdisk -l /dev/sdb
+lvmdiskscan  #查看lvm disk
+vgchange -ay #应该是把lvm归组
+lvscan #查看归组的lvm
+mount /dev/ubuntu-vg/lv-root /mnt/disk #mount lvm disk
+
+
+#linux hdd smart
+sudo apt install smartmontools
+smartctl -a <device>: #显示硬盘smart全部信息。
+smartctl -i <device>: #显示是否打开smart
+如果没有开启 smartctl --smart=on --offlineauto=on --saveauto=on <device> 开启smart。   第二种方法: smartctl -s on <device>45
+
+1 Raw_Read_Error_Rate
+5 Reallocated_Sector_Ct
+7 Seek_Error_Rate
+9 Power_On_Hours
+194 Temperature_Celsius
+196 Reallocated_Event_Count
+
+
+#hdparm 设置硬盘休眠
+#查询硬盘信息
+hdparm -I /dev/sda
+#查询当前电源管理参数
+hapram -B /dev/sdb
+#设置APM参数
+haparm -B 127 /dev/sdb #1-127 允许休眠，128-254 不允许，255 完全关闭电源管理功能
+#设置多长时间后开始休眠，参数是5的倍数，60*5=300 就是5分钟
+hdparm -S 60 /dev/sdb          #12*60=1小时   24*60=2小时
+30 = 2 min 30 sec
+60 = 5 minutes
+120 = 10 minutes
+180 = 15 minutes
+241 = 30 minutes
+242 = 1 hour
+243 = 1.5 hours
+244 = 2 hours
+
+
+#查看状态
+hdparm -C /dev/sdb
+
+
+#进入待机模式
+hdparm -y /dev/sdb
+#进入睡眠模式，注意使用
+hdparm -Y /dev/sdb
+
+#自启动
+/etc/rc.local #需要执行权限
+#!/bin/bash
+hdparm -B 127 -S 242 /dev/disk/by-id/ata-WDC_WD10JPVX-22JC3T0_WD-WX51A84CV1A5
+exit 0
+
+===================================================================================
+
+编辑 /etc/udev/rules.d/69-hdparm.rules，添加下面语句后保存
+
+ACTION=="add", SUBSYSTEM=="block", KERNEL=="sda", RUN+="/usr/bin/hdparm -B 127 -S 0 /dev/sda"
+
+#查看hdparm 配置
+/etc/hdparm.conf
+
+#安装smartctl 
+smartmontools
+smartctl -i -n standby /dev/sda | grep "mode" | awk '{print $4}'
+
+/etc/hdparm.conf
+
+/dev/sdb{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdc{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdd{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sde{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdf{
+        write_cache = on
+        spindown_time = 242
+}
+
+================================================================================
+#重置root密码
+开机后按 shift
+选择 恢复模式 选项， 按e
+改写：ro -> rw single init=/bin/bash，后面的字符删除完
+ctrl+x启动
+
+sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
+
+
+#禁用swap
+在/etc/fstab中注掉swap.img这行
+
+
+#禁用ipv6
+1、临时
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
+2、固化
+/etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+net.ipv6.conf.lo.disable_ipv6=1
+
+sudo sysctl -p
+
+3、如果还是不行
+/etc/rc.local 中，重点注意 文件改为 755
+
+/etc/sysctl.d
+/etc/init.d/procps restart
+
+exit 0
+==================================================================
+
+# mount lvm disk
+fdisk -l /dev/sdb
+lvmdiskscan  #查看lvm disk
+vgchange -ay #应该是把lvm归组
+lvscan #查看归组的lvm
+mount /dev/ubuntu-vg/lv-root /mnt/disk #mount lvm disk
+
+
+#linux hdd smart
+sudo apt install smartmontools
+smartctl -a <device>: #显示硬盘smart全部信息。
+smartctl -i <device>: #显示是否打开smart
+如果没有开启 smartctl --smart=on --offlineauto=on --saveauto=on <device> 开启smart。   第二种方法: smartctl -s on <device>45
+
+1 Raw_Read_Error_Rate
+5 Reallocated_Sector_Ct
+7 Seek_Error_Rate
+9 Power_On_Hours
+194 Temperature_Celsius
+196 Reallocated_Event_Count
+
+
+#hdparm 设置硬盘休眠
+#查询硬盘信息
+hdparm -I /dev/sda
+#查询当前电源管理参数
+hapram -B /dev/sdb
+#设置APM参数
+haparm -B 127 /dev/sdb #1-127 允许休眠，128-254 不允许，255 完全关闭电源管理功能
+#设置多长时间后开始休眠，参数是5的倍数，60*5=300 就是5分钟
+hdparm -S 60 /dev/sdb          #12*60=1小时   24*60=2小时
+30 = 2 min 30 sec
+60 = 5 minutes
+120 = 10 minutes
+180 = 15 minutes
+241 = 30 minutes
+242 = 1 hour
+243 = 1.5 hours
+244 = 2 hours
+
+
+#查看状态
+hdparm -C /dev/sdb
+
+
+#进入待机模式
+hdparm -y /dev/sdb
+#进入睡眠模式，注意使用
+hdparm -Y /dev/sdb
+
+#自启动
+/etc/rc.local #需要执行权限
+#!/bin/bash
+hdparm -B 127 -S 242 /dev/disk/by-id/ata-WDC_WD10JPVX-22JC3T0_WD-WX51A84CV1A5
+exit 0
+
+===================================================================================
+
+编辑 /etc/udev/rules.d/69-hdparm.rules，添加下面语句后保存
+
+ACTION=="add", SUBSYSTEM=="block", KERNEL=="sda", RUN+="/usr/bin/hdparm -B 127 -S 0 /dev/sda"
+
+#查看hdparm 配置
+/etc/hdparm.conf
+
+#安装smartctl 
+smartmontools
+smartctl -i -n standby /dev/sda | grep "mode" | awk '{print $4}'
+
+/etc/hdparm.conf
+
+/dev/sdb{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdc{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdd{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sde{
+        write_cache = on
+        spindown_time = 242
+}
+/dev/sdf{
+        write_cache = on
+        spindown_time = 242
+}
+
+================================================================================
+#重置root密码
+开机后按 shift
+选择 恢复模式 选项， 按e
+改写：ro -> rw single init=/bin/bash，后面的字符删除完
+ctrl+x启动
