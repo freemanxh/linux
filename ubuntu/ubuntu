@@ -32,7 +32,11 @@ network:
       dhcp6: false
   
 
+#得到当前时间
+date+%Y%m%d
+$(date +%Y%m%d_%H:%M:%S)
 
+mysqldump -uroot -h192.168.0.230 -pyema123456 pricing_param_cd5j > /nfs/mysql/pricing_param_cd5j_`date +%Y%m%d`.sqlbak
 
 #设置系统时区
 timedatectl
