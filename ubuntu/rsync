@@ -8,6 +8,9 @@
 rsync -avz --delete /data/hdd2/photos/ /data/hdd3/photos
 
 
+===========================================================================
+
+
 #服务端
 /etc/rsyncd.conf
 port=873
@@ -26,13 +29,14 @@ secrets file = /etc/rsyncd.secrets  #此文件必须为root:root 且chmod为600
 /etc/rsyncd.secrets文件中
 xuhui:Rgzdbsa_ZxY!2023_200
 
-#客户端 rsync.password必须为root:root chmod为600,把远程的文件同步到本地
+#客户端 
+rsync.password必须为root:root chmod为600,把远程的文件同步到本地
 rsync -avz --delete --password-file=/etc/rsync.password xuhui@192.168.0.200::gitlab_bak /data_sata/gitlab_bak
 
 /etc/rsync.password 文件中直接填入密码。
 Rgzdbsa_ZxY!2023_200
 
-
+========================================================================
 当服务端装不了rsyncd时。
 docker run -d -p 873:873 --restart=always -v /data_sata:/data_sata -v /home/xuhui/docker/rsyncd/rsyncd.conf:/etc/rsyncd.conf -v /home/xuhui/docker/rsyncd/rsyncd.secrets:/etc/rsyncd.secrets --name rsync  ubuntu_rsync:1
 
