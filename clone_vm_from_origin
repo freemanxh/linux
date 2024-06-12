@@ -69,6 +69,11 @@ vim /etc/docker/daemon.json
 	   "max-file": "10"
  	}
 }
+
+目前还能用的加速镜像 20240612
+["https://ustc-edu-cn.mirror.aliyuncs.com/","https://ccr.ccs.tencentyun.com/","https://docker.m.daocloud.io/"]
+
+
 systemctl restart docker
 
 6、扩展硬盘、以及 改cpu数量、内存大小（20G=20480000）30G=30720000
