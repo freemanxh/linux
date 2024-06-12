@@ -21,6 +21,18 @@ network:
           -  192.168.0.1
           -  114.114.114.114
           -  8.8.8.8
+
+
+#禁用swap
+在/etc/fstab中注掉swap.img这行
+
+
+#禁用ipv6 方法1
+sudo cp -v /etc/default/grub /etc/default/grub.bak
+#增加以下行
+GRUB_CMDLINE_LINUX="ipv6.disable=1"
+sudo update-grub
+sudo reboot
           
           
 
