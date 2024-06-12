@@ -103,3 +103,6 @@ sudo vi /etc/docker/daemon.json
     "max-file": "10"
   }
 }
+
+目前还能用的加速镜像 20240612
+["https://ustc-edu-cn.mirror.aliyuncs.com/","https://ccr.ccs.tencentyun.com/","https://docker.m.daocloud.io/"]
