@@ -371,13 +371,3 @@ alias_maps = hash:/etc/aliases
 
 
 
-
-
-
-
-
-#如果没有找到postalias 数据db
-postalias /etc/aliases 或  newaliases
-
-
-
