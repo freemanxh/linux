@@ -95,6 +95,7 @@ sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
 
 #禁用ipv6 方法1
 sudo cp -v /etc/default/grub /etc/default/grub.bak
+sudo vim /etc/default/grub
 #增加以下行
 GRUB_CMDLINE_LINUX="ipv6.disable=1"
 sudo update-grub
