@@ -355,6 +355,9 @@ ctrl+x启动
 ----------------------
 #开启vnc
 
+需要关闭selinux或firewalld
+下面这个可以不做
+
 # vi /etc/libvirt/qemu.conf 
 vnc_listen = "0.0.0.0"
 
