@@ -352,6 +352,20 @@ smartctl -i -n standby /dev/sda | grep "mode" | awk '{print $4}'
 改写：ro -> rw single init=/bin/bash，后面的字符删除完
 ctrl+x启动
 
+----------------------
+#开启vnc
+<input type='keyboard' bus='ps2'/>
+
+    <graphics type='vnc' port='5903' autoport='no' listen='0.0.0.0' passwd='654321'>
+      <listen type='address' address='0.0.0.0'/>
+    </graphics>
+
+<audio id='1' type='none'/>
+
+
+#发送key到虚拟机中
+virsh send-key kvm_name KEY_LEFTCTRL KEY_LEFTALT KEY_DELETE
+
 ================================================================================
 
 #cron 不能执行手动可以执行的脚本
