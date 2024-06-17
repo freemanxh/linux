@@ -354,6 +354,12 @@ ctrl+x启动
 
 ----------------------
 #开启vnc
+
+# vi /etc/libvirt/qemu.conf 
+vnc_listen = "0.0.0.0"
+
+----
+
 <input type='keyboard' bus='ps2'/>
 
     <graphics type='vnc' port='5903' autoport='no' listen='0.0.0.0' passwd='654321'>
