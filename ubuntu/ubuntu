@@ -393,5 +393,28 @@ alias_maps = hash:/etc/aliases
 . /etc/profile
 
 
+#一个数据备份的cron
+
+. /etc/profile
+#. ~/.bash_profile
+#!/bin/bash
+mysqldump -uroot -h192.168.0.230 -pyema123456 pricing_param_cd5j > /nfs/mysql/pricing_param_cd5j_`date +%Y%m%d`.sqlbak
+
+#echo 'mysqldump start...'
+#mysqldump -uroot -h192.168.0.230 -pyema123456 pricing_param_cd5j > /nfs/mysql/pricing_param_cd5j.sqlbak
+#echo 'mysqldump end...'
+mysqldump -uroot -h192.168.0.230 -pyema123456 pricing_param > /nfs/mysql/pricing_param_`date +%Y%m%d`.sqlbak
+
+sDate=`date +%Y%m%d`
+mkdir -p /nfs/mongodb/$sDate
+docker run --rm -v /nfs/mongodb/$sDate:/mongo_backup mongo:6.0 bash -c 'mongodump --host 192.168.0.46:27017 -uroot -p123456 -o /mongo_backup --gzip'
+
+docker run --rm mysql:8.2 mysqldump -uroot -h192.168.0.46 -p123456 --all-databases | gzip > /nfs/mysql/all_$sDate.sql.gz
+
+
+*/1 * * * * 每分钟
+* 1 * * * 每天1点
+
+
 
 
