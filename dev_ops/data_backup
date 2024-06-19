@@ -9,6 +9,12 @@
   恢复需要进入容器，同上
   mysql 或 source
 
+  压缩：
+  docker run -it --rm mysql:8.2 mysqldump -uroot -h192.168.0.46 -p123456 --all-databases | gzip > /nfs/mysql/all.sql.gz
+
+  #（需测试）
+  gunzip < backupfile.sql.gz | mysql -uusername -ppassword databasename 
+
   自动执行（需测试）
   sudo docker exec mysql(容器名) sh -c 'exec mysqldump --all-databases -uroot -p123456 --all-databases' > /var/backup/music_`date +\%F`.sql
 
