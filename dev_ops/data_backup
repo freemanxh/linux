@@ -1,0 +1,23 @@
+1、mysql（全量）
+  备份:
+  mysqldump -uroot -h192.168.0.22 -p123456 --all-databases > /all.sql
+  恢复：
+  mysql -uroot -p123456 -h192.168.0.44 -P3307 < ./var/lib/mysql/all.sql
+
+  容器中：
+  docker run -it --rm mysql:8.2 mysqldump -uroot -h192.168.0.22 -p123456 --all-databases > ./all.sql
+  恢复需要进入容器，同上
+  mysql 或 source
+
+  自动执行（需测试）
+  sudo docker exec mysql(容器名) sh -c 'exec mysqldump --all-databases -uroot -p123456 --all-databases' > /var/backup/music_`date +\%F`.sql
+
+  定时任务（需测试）
+  0 2 * * * find /backup/ -mtime +1 -name "*.sql" -delete && sudo docker exec mysql sh -c 'exec mysqldump --all-databases -uroot -p123456 --all-databases' > /var/backup/music_`date +\%F`.sql
+
+2、mongodb（全量）
+  备份：
+  docker run -it --rm -v ./mongo_backup:/mongo_backup mongo:6.0 bash -c 'mongodump --host 192.168.0.44:27017 -uroot -p123456 -o /mongo_backup --gzip' 
+  恢复：
+  docker run -it --rm -v ./mongo_backup:/mongo_backup mongo:6.0 bash -c 'mongorestore --host 192.168.0.44:27020 -uroot -p123456 --dir /mongo_backup --gzip --drop '
+  
