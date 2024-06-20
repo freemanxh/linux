@@ -409,7 +409,10 @@ sDate=`date +%Y%m%d`
 mkdir -p /nfs/mongodb/$sDate
 docker run --rm -v /nfs/mongodb/$sDate:/mongo_backup mongo:6.0 bash -c 'mongodump --host 192.168.0.46:27017 -uroot -p123456 -o /mongo_backup --gzip'
 
-docker run --rm mysql:8.2 mysqldump -uroot -h192.168.0.46 -p123456 --all-databases | gzip > /nfs/mysql/all_$sDate.sql.gz
+#docker run --rm mysql:8.2 mysqldump -uroot -h192.168.0.46 -p123456 --all-databases | gzip > /nfs/mysql/all_$sDate.sql.gz
+
+docker run --rm mysql:8.2 mysqldump -uroot -h192.168.0.46 -p123456 --all-databases > /nfs/mysql/all_$sDate.sql
+gzip /nfs/mysql/all_$sDate.sql
 
 
 */1 * * * * 每分钟
