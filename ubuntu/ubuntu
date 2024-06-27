@@ -38,7 +38,7 @@ $(date +%Y%m%d_%H:%M:%S)
 
 mysqldump -uroot -h192.168.0.230 -pyema123456 pricing_param_cd5j > /nfs/mysql/pricing_param_cd5j_`date +%Y%m%d`.sqlbak
 
-#设置系统时区
+#1、设置系统时区
 timedatectl
 
 sudo systemctl status systemd-timesyncd.service
@@ -79,7 +79,7 @@ network:
 
 
 
-#设置系统时区
+#2、设置系统时区
 timedatectl
 
 sudo systemctl status systemd-timesyncd.service
@@ -89,11 +89,11 @@ sudo timedatectl set-ntp true  #手动设置时区同步
 sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
 
 
-#禁用swap
+#3、禁用swap
 在/etc/fstab中注掉swap.img这行
 
 
-#禁用ipv6 方法1
+#4、禁用ipv6 方法1
 sudo cp -v /etc/default/grub /etc/default/grub.bak
 sudo vim /etc/default/grub
 #增加以下行
