@@ -1,7 +1,7 @@
 1、安装docker jenkins jdk maven gradle
 #docker pull jenkins/jenkins:lts
-docker pull jenkins/jenkins:lts-jdk17  #2.452.2
-一定要注意版本，不能太低了
+docker pull jenkins/jenkins:jdk17  #2.464      20240628
+一定要注意版本，不能太低了，最好直接装最新版本，不一定是lts
 创建目录
 /home/yematech/docker_data/jenkins_home
 
