@@ -50,6 +50,7 @@ publish over ssh  #推送文件到远程ssh 服务
 ssh pipeline
 nodejs
 Extended Choice Parameter
+Pipeline: Stage View
 
 
 #把jdk&maven移到jenkins的docker mapping目录
