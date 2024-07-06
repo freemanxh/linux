@@ -52,6 +52,18 @@ nodejs
 Extended Choice Parameter
 Pipeline: Stage View
 build user vars
+        wrap([$class: 'BuildUser']) {
+          script {
+            //获取当前登录用户账户、姓名、邮箱
+            Applier_id = "${BUILD_USER_ID}"
+            THE_USER_ID=Applier_id
+            Applier_name = "${env.BUILD_USER}"
+            Applier_mail = "${env.BUILD_USER_EMAIL}"
+          }
+          script{
+            println Applier_id
+          }
+        }
 
 
 #把jdk&maven移到jenkins的docker mapping目录
