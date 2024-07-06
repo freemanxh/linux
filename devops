@@ -51,6 +51,7 @@ ssh pipeline
 nodejs
 Extended Choice Parameter
 Pipeline: Stage View
+build user vars
 
 
 #把jdk&maven移到jenkins的docker mapping目录
