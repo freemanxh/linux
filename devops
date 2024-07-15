@@ -51,6 +51,10 @@ ssh pipeline
 nodejs
 Extended Choice Parameter
 Pipeline: Stage View
+Maven Release Plug-in
+rebuilder
+ansicolor
+Role-Based Strategy
 build user vars
         wrap([$class: 'BuildUser']) {
           script {
