@@ -42,6 +42,7 @@ services:
 
 
 追加如下plugins
+blue ocean
 chinese
 locale
 git parameter plug-in
