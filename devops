@@ -83,6 +83,7 @@ smtp.sina.com
 port:465
 注意：系统管理员邮件地址要和邮件通知中的用户一致
 https://juejin.cn/post/6844904119707123719
+https://blog.csdn.net/GLYX5717/article/details/119747860
 ----------------------------------------------
 
 #把jdk&maven移到jenkins的docker mapping目录
