@@ -56,6 +56,7 @@ Maven Release Plug-in
 rebuilder
 ansicolor
 Role-Based Strategy
+-----------------------------------------------
 build user vars
         wrap([$class: 'BuildUser']) {
           script {
@@ -69,7 +70,20 @@ build user vars
             println Applier_id
           }
         }
+-----------------------------------------------
+Email Extension Plugin
+Email Extension Template
 
+smtp.sina.com
+@sina.com
+用户名:yema_no_reply@sina.com
+#为授权码，不是邮箱密码
+密码:5ae81bcdd09653ff
+使用ssl协议
+port:465
+注意：系统管理员邮件地址要和邮件通知中的用户一致
+https://juejin.cn/post/6844904119707123719
+----------------------------------------------
 
 #把jdk&maven移到jenkins的docker mapping目录
 jdk & maven
