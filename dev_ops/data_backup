@@ -1,11 +1,21 @@
 1、mysql（全量）
   备份:
   mysqldump -uroot -h192.168.0.22 -p123456 --all-databases > /all.sql
+
+  mysqldump -uroot -h192.168.0.22 -p123456 database_name > /all.sql
+
   恢复：
   mysql -uroot -p123456 -h192.168.0.44 -P3307 < ./var/lib/mysql/all.sql
 
+  有可能需要下面的准备工作
+  mysql -uroot -p123456 -h192.168.0.52 
+  CREATE DATABASE IF NOT EXISTS useraction DEFAULT CHARACTER SET utf8mb4
+  sed -i '1d' useraction.sql 
+
   容器中：
   docker run -it --rm mysql:8.2 mysqldump -uroot -h192.168.0.22 -p123456 --all-databases > ./all.sql
+
+  docker run -it --rm mysql:8.2 mysqldump -uroot -h192.168.0.22 -p123456 database_name > ./all.sql
   恢复需要进入容器，同上
   mysql 或 source
 
