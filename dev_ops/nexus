@@ -1,0 +1,34 @@
+下载最新版:https://www.sonatype.com/oss-thank-you-tar.gz
+历史版本:https://help.sonatype.com/repomanager3/download/download-archives—repository-manager-3
+
+./nexus run &
+admin/admin123
+
+设置开机自起动：
+ln -s /mnt/nexus-3.12.1-01/bin/nexus /etc/init.d/nexus3
+chkconfig --add nexus3
+chkconfig nexus3 on
+
+配置用户运行
+[root@nexus ~]$useradd nexus
+[root@nexus bin]$vim nexus.rc
+run_as_user="nexus"
+
+配置之后记得更改目录权限，否则下次启动会没有权限。
+[root@nexus mnt]$chown -R nexus.nexus /mnt/nexus-3.12.1-01
+[root@nexus mnt]$chown -R nexus.nexus /mnt/sonatype-work
+
+配置jdk
+[root@nexus bin]$vim nexus
+修改第14行：
+INSTALL4J_JAVA_HOME_OVERRIDE=/usr/local/jdk1.8.0_144
+
+配置存储及日志位置
+[root@nexus bin]$vim /mnt/nexus-3.12.1-01/bin/nexus.vmoptions
+-XX:LogFile=../sonatype-work/nexus3/log/jvm.log
+-Dkaraf.data=../sonatype-work/nexus3
+-Djava.io.tmpdir=../sonatype-work/nexus3/tmp
+
+解决文件句柄限制。
+echo "nexus  -  nofile 65536" >> /etc/security/limits.conf
+
