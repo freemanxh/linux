@@ -1,0 +1,9 @@
+1、仓库分 本地 hosted 8083 pull push 、代理 proxy 8084 pull、聚合 group 8082 pull
+  
+2、创建 blob stores 对象
+  文件存储
+3、开启匿名访问权限
+  security->realms,将docker bearer token tealm 添加到右侧
+4、改client 的daemon.json
+  "registry-mirrors": ["http://nexus.yematech.cc:8082","http://nexus.yematech.cc:8083"],
+  "insecure-registries": ["nexus.yematech.cc:8082","nexus.yematech.cc:8083"]
