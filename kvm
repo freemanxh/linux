@@ -263,7 +263,12 @@ virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
 12、vgextend ubuntu-vg /dev/vdb #将新创建的PV /dev/vdb添加到VG ubuntu-vg当中  [ubuntu-vg ]
 13、lvextend -L +100G /dev/ubuntu-vg/lv-root  #扩容LV /dev/ubuntu-vg/lv-root  [/dev/ubuntu-vg/lv-root] 99.99G最好
 14、lvdisplay
+15和16 根据文件系统选择执行
 15、resize2fs /dev/ubuntu-vg/lv-root #更新文件系统
+16、xfs_growfs /mnt/data                            # XFS文件系统扩容，假设/mnt/data是挂载点
+
+
+
 
 ======================================================================
 
