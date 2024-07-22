@@ -2,16 +2,16 @@ docker compose 安装
 
 version: '3'
 services:
-  nexus:
+  nexus3:
     image: 'sonatype/nexus3'
-    container_name: nexus
+    container_name: nexus3
     restart: always
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - '8931:8081'
+      - '8081:8081'
     volumes:
-      - '/home/work/docker-nexus/data:/nexus-data'
+      - '/home/yematech/docker_data/nexus/nexus-data:/nexus-data'
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 
