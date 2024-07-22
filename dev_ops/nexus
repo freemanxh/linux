@@ -1,3 +1,25 @@
+docker compose 安装
+
+version: '3'
+services:
+  nexus:
+    image: 'sonatype/nexus3'
+    container_name: nexus
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '8931:8081'
+    volumes:
+      - '/home/work/docker-nexus/data:/nexus-data'
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+      使用管理员admin，密码在挂载目录下的admin.password,第一次登录需要修改密码
+
+
+
+
 下载最新版:https://www.sonatype.com/oss-thank-you-tar.gz
 历史版本:https://help.sonatype.com/repomanager3/download/download-archives—repository-manager-3
 
