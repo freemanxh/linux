@@ -1,4 +1,4 @@
-docker compose 安装
+1、docker compose 安装
 
 version: '3'
 services:
@@ -10,15 +10,17 @@ services:
       - TZ=Asia/Shanghai
     ports:
       - '8081:8081'
-      - '8082:8082'
-      - '8083:8083'
-      - '8084:8084'
+      - '8082:8082' #docker group
+      - '8083:8083' #docker local
+      - '8084:8084' #docker proxy
     volumes:
       - '/home/yematech/docker_data/nexus/nexus-data:/nexus-data'
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 
       使用管理员admin，密码在挂载目录下的admin.password,第一次登录需要修改密码
+
+
 
 
 
