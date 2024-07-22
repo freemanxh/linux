@@ -9,10 +9,11 @@
   "insecure-registries": ["nexus.yematech.cc:8082","nexus.yematech.cc:8083"]
 
 以上为http请求配置
-如果要https，需要用nginx做反向代理 ，目前443只能mapping为443,不能变，这点后面学会调整。
+如果要https，需要用nginx做反向代理。
 https://hellogitlab.com/CI/docker/create_your_nexus_6_nginx_proxy
+https://juejin.cn/post/6844903781654593550
 
-docker run -p 80:80 -p 443:443 \
+docker run -p 80:80 -p 50443:50443 \
     -d --name nginx \
     -v /home/yematech/docker_data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
     -v /home/yematech/docker_data/nginx/conf/conf.d:/etc/nginx/conf.d \
@@ -46,7 +47,7 @@ server{
 
   server {
     #监听443端口
-    listen 443 ssl;
+    listen 50443 ssl;
     #你的域名
     server_name docker-repo.yematech.cc;
     #ssl on;
@@ -71,7 +72,7 @@ server{
     location / {
 #        proxy_pass 192.168.0.99:8082;
         proxy_pass http://$upstream;
-         proxy_set_header Host $host;
+         proxy_set_header Host $host:$server_port;
          proxy_set_header X-Real-IP $remote_addr;
          proxy_buffering off;
          proxy_request_buffering off;
