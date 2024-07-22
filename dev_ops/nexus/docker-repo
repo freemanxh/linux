@@ -10,6 +10,7 @@
 
 以上为http请求配置
 如果要https，需要用nginx做反向代理 ，目前443只能mapping为443,不能变，这点后面学会调整。
+https://hellogitlab.com/CI/docker/create_your_nexus_6_nginx_proxy
 
 docker run -p 80:80 -p 443:443 \
     -d --name nginx \
