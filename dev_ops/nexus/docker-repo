@@ -24,6 +24,30 @@ docker run -p 80:80 -p 50443:50443 \
 
 web和docker-repo申请两个域名。
 
+
+nginx_nexus.yaml
+version: '3'
+services:
+  nginx_nexus:
+    image: 'nginx:latest'
+    container_name: nginx_nexus
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '28080:28080' #nexus web
+      - '28081:28081' #nexus docker group
+      - '28020:28020' #harbor web
+      - '28021:28021' #harbor 
+    volumes:
+      - '/home/yematech/docker_data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf'
+      - '/home/yematech/docker_data/nginx/conf/conf.d:/etc/nginx/conf.d'
+      - '/home/yematech/docker_data/nginx/ssl:/ssl'
+      - '/home/yematech/docker_data/nginx/html:/usr/share/nginx/html'
+      - '/home/yematech/docker_data/nginx/log:/var/log/nginx'
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
 ===================================================================================
 nginx中的配置 nexus.conf  
 
