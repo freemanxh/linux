@@ -1,0 +1,21 @@
+1、python:
+
+RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
+
+RUN pip config set global.trusted-host 192.168.0.83
+RUN pip config set global.index-url http://192.168.0.83:8081/repository/pypi_group/simple
+RUN pip3 config set global.trusted-host 192.168.0.83
+RUN pip3 config set global.index-url http://192.168.0.83:8081/repository/pypi_group/simple
+
+RUN pip3 install -r requirements.txt
+
+RUN pip3 install --trusted-host 192.168.0.83 -i http://192.168.0.83:8081/repository/ -r requirements.txt
+
+mkdir ~/.pip
+cat > ~/.pip/pip.conf << EOF
+[global]
+timeout = 60
+trusted-host = 192.168.75.11
+index-url = http://192.168.75.11:8081/repository/group-pypi/simple
+EOF
