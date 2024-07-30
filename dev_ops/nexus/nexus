@@ -21,6 +21,9 @@ services:
       使用管理员admin，密码在挂载目录下的admin.password,第一次登录需要修改密码
 
 
+需要进入管理页面中设置http的超时时间。
+
+
 
 
 
