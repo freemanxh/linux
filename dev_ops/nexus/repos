@@ -8,7 +8,7 @@ RUN pip config set global.index-url http://192.168.0.83:8081/repository/pypi_gro
 RUN pip3 config set global.trusted-host 192.168.0.83
 RUN pip3 config set global.index-url http://192.168.0.83:8081/repository/pypi_group/simple
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --timeout 600 -r requirements.txt
 
 RUN pip3 install --trusted-host 192.168.0.83 -i http://192.168.0.83:8081/repository/ -r requirements.txt
 
