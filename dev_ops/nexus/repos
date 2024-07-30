@@ -24,5 +24,8 @@ EOF
 2、npm
 客户端做如下配置
 npm config set registry http://192.168.0.83:8081/repository/npm-group/
+#npm config list
+#npm update
+npm -loglevel info install -g npx
+npx update-browserslist-db@latest
 npm -loglevel info install
-npm run build
