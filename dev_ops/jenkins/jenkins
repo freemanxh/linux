@@ -67,6 +67,7 @@ Pipeline: Stage View
 Maven Release Plug-in
 rebuilder
 ansicolor
+Monitoring
 Role-Based Strategy
 -----------------------------------------------
 build user vars
