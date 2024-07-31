@@ -39,6 +39,7 @@ http://mirrors.ustc.edu.cn/ubuntu
 
 
 client: /etc/apt/sources.list
+sudo apt clean
 deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy main restricted universe multiverse
 deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-security main restricted universe multiverse
 deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-updates main restricted universe multiverse
