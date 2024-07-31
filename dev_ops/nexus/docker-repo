@@ -4,7 +4,21 @@
   文件存储
 3、开启匿名访问权限
   security->realms,将docker bearer token tealm 添加到右侧
-4、改client 的daemon.json
+4、相关配置如下
+4.1)proxy
+不选 http https ,allow anonymous pull,enable v1 api
+index:use Docker Hub
+url:
+https://dockerproxy.com
+https://hub.docker.com
+
+4.2)local :8083
+http, allow anonymous,enable v1 api
+allow redeploy
+
+4.3)group :8082
+
+5、改client 的daemon.json
   "registry-mirrors": ["http://nexus.yematech.cc:8082","http://nexus.yematech.cc:8083"],
   "insecure-registries": ["nexus.yematech.cc:8082","nexus.yematech.cc:8083"]
 
