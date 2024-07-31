@@ -30,8 +30,29 @@ npm -loglevel info install -g npx
 npx update-browserslist-db@latest
 npm -loglevel info install
 
+3、apt
+nexus:
+distribution中 要填写相应的jammy版本名
+remote storage中
+http://mirrors.ustc.edu.cn/ubuntu
+超时时间统一设为600秒
 
-3、yum
+
+client: /etc/apt/sources.list
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-security main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-updates main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-proposed main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-backports main restricted universe multiverse
+
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-security main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-updates main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-proposed main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-backports main restricted universe multiverse
+
+
+4、yum
 
 1)、cd /etc/yum.repos.d/
 mkdir bak && mv * bak
