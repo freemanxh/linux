@@ -130,32 +130,65 @@ server{
 }
 
 server{
-        listen 443 ssl;
+        listen 28081 ssl;
         server_name nexus.yematech.cc;
         index index.html index.htm index.php;
 
-    #ssl证书的pem文件路径
-    ssl_certificate  /ssl/cert.pem;
-    #ssl证书的key文件路径
-    ssl_certificate_key /ssl/key.pem;
-    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
-    ssl_ciphers '!aNULL:kECDH+AESGCM:ECDH+AESGCM:RSA+AESGCM:kECDH+AES:ECDH+AES:RSA+AES:';
-    ssl_prefer_server_ciphers on;
-    ssl_session_cache shared:SSL:10m;
-    client_max_body_size 0;
-    chunked_transfer_encoding on;
+        #ssl证书的pem文件路径
+        ssl_certificate  /ssl/cert.pem;
+        #ssl证书的key文件路径
+        ssl_certificate_key /ssl/key.pem;
+        ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_ciphers '!aNULL:kECDH+AESGCM:ECDH+AESGCM:RSA+AESGCM:kECDH+AES:ECDH+AES:RSA+AES:';
+        ssl_prefer_server_ciphers on;
+        ssl_session_cache shared:SSL:10m;
+        client_max_body_size 0;
+        chunked_transfer_encoding on;
+        access_log /var/log/nginx/nexus_access.log;
+        error_log /var/log/nginx/nexus_error.log;
 
-    location / {
-            proxy_pass http://nexus_docker_web;
-         proxy_set_header Host $host;
-        client_max_body_size 512m;
-         proxy_buffering off;
-         proxy_request_buffering off;
-         proxy_connect_timeout 3600;
-         proxy_send_timeout 3600;
-         proxy_read_timeout 3600;
-    }
+        location / {
+            proxy_pass http://nexus_web;
+            proxy_set_header Host $host:$server_port;
+            client_max_body_size 2048m;
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_connect_timeout 3600;
+            proxy_send_timeout 3600;
+            proxy_read_timeout 3600;
+        }
+}
 
+server{
+        listen 28081 ssl;
+        server_name docker-repo.yematech.cc;
+        index index.html index.htm index.php;
+
+        #ssl证书的pem文件路径
+        ssl_certificate  /ssl/cert.pem;
+        #ssl证书的key文件路径
+        ssl_certificate_key /ssl/key.pem;
+        ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_ciphers '!aNULL:kECDH+AESGCM:ECDH+AESGCM:RSA+AESGCM:kECDH+AES:ECDH+AES:RSA+AES:';
+        ssl_prefer_server_ciphers on;
+        ssl_session_cache shared:SSL:10m;
+        client_max_body_size 0;
+        chunked_transfer_encoding on;
+        access_log /var/log/nginx/docker-repo_access.log;
+        error_log /var/log/nginx/docker-repo_error.log;
+
+        location / {
+            proxy_pass http://nexus_docker_get;
+            proxy_set_header Host $host:$server_port;
+            client_max_body_size 2048m;
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_connect_timeout 3600;
+            proxy_send_timeout 3600;
+            proxy_read_timeout 3600;
+        }
 }
 
 ===================================================================================
