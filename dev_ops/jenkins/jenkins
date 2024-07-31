@@ -47,6 +47,7 @@ docker run \
 一、解决插件安装问题，加速Jenkins安装插件速度
 在jenkins_home目录下。修改 vi hudson.model.UpdateCenter.xml里的内容
 所url改为 https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json
+http://updates.jenkins.io/update-center.json  //这个需要测试
 
 输入url http://192.168.0.99:8080 进行访问。
 密码在 jenkins_home/secrets/initialAdminPassword 中
