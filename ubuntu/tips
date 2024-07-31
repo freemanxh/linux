@@ -1,0 +1,6 @@
+清除ubuntu的dns缓存
+sudo systemctl restart systemd-resolved.service
+sudo resolvectl flush-caches
+
+查看缓存
+resolvectl status
