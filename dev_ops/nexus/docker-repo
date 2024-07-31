@@ -163,6 +163,23 @@ server{
 /etc/docker/daemon.json
 "registry-mirrors": ["https://docker-repo.yematech.cc"]
 
+----------------------------------------------------------------------------
+公司内:
+{
+        "registry-mirrors": ["http://192.168.0.83:8082"]
+}
+公司外:
+{
+ "registry-mirrors": ["https://docker-repo.yematech.cc:28081"]
+}    
+
+------------------------------------------------------------------------
+"registry-mirrors": ["https://njrds9qc.mirror.aliyuncs.com"],
+        "insecure-registries": ["192.168.0.90:80","harhor.yematech.cc:80"],
+        "log-opts": {
+           "max-size": "100M",
+           "max-file": "10"
+        }
 ===================================================================================
 docker pull mysql:5.7
 
