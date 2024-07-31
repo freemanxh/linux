@@ -30,6 +30,9 @@ npm -loglevel info install -g npx
 npx update-browserslist-db@latest
 npm -loglevel info install
 
+  开启匿名访问权限
+  security->realms,将npm bearer token tealm 添加到右侧
+
 3、apt
 nexus:
 distribution中 要填写相应的jammy版本名
