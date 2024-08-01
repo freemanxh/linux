@@ -23,7 +23,7 @@ EOF
 
 2、npm
 客户端做如下配置
-npm config set registry http://192.168.0.83:8081/repository/npm-group/
+npm config set registry http://192.168.0.83:8081/repository/npm_group/
 #npm config list
 #npm update
 npm -loglevel info install -g npx
@@ -32,6 +32,10 @@ npm -loglevel info install
 
   开启匿名访问权限
   security->realms,将npm bearer token tealm 添加到右侧
+
+https://npm.taobao.org/
+https://mirrors.cloud.tencent.com/npm/
+https://registry.npmmirror.com/
 
 3、apt
 nexus:
