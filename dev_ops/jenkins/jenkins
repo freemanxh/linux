@@ -68,8 +68,10 @@ Maven Release Plug-in
 rebuilder
 ansicolor
 Monitoring
+dingtalk
+  https://jenkinsci.github.io/dingtalk-plugin/
 Role-Based Strategy
-需要在jenkins的全局安全配置中启用它，授权中选Role-based strategy
+ 需要在jenkins的全局安全配置中启用它，授权中选Role-based strategy
 -----------------------------------------------
 build user vars
         wrap([$class: 'BuildUser']) {
