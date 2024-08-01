@@ -56,7 +56,12 @@ deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-pro
 deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-backports main restricted universe multiverse
 
 
-4、yum
+4、maven
+迁移的话，是要把log tmp cache这三个目录中的数据给删除掉
+配anonymous用户
+
+
+5、yum
 
 1)、cd /etc/yum.repos.d/
 mkdir bak && mv * bak
