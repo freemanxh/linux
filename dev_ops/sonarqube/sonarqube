@@ -89,3 +89,7 @@ docker run \
     }
 }
 
+1.7、中文语言包
+https://github.com/xuhuisheng/sonar-l10n-zh/releases/latest
+https://github.com/xuhuisheng/sonar-l10n-zh/releases/tag/sonar-l10n-zh-plugin-10.6
+
