@@ -3,3 +3,6 @@
 [ $[$(ls /data_sata/gitlab_bak/ | wc -l)-30] -ge 0 ] #计算减法 大于30
  head -n$[$(ls /data_sata/gitlab_bak/ | wc -l)-30] #大于30个的选出来
 
+每次copy第一个文件到指定的地方
+find /data/docker_data/gitlab/data/backups/ | sort -r | head -n 1 | xargs -i cp {} /data_sata/gitlab_bak/
+
