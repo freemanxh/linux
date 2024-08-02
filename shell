@@ -1,0 +1,5 @@
+删除目录中大于n个文件。只保留n个文件，这儿是以文件自然顺序 ，30个 ，如要改其它的，应该改2个地方
+[ $[$(ls /data_sata/gitlab_bak/ | wc -l)-30] -ge 0 ] &&  cd /data_sata/gitlab_bak/ && ls /data_sata/gitlab_bak/ | head -n$[$(ls /data_sata/gitlab_bak/ | wc -l)-30] | xargs rm 
+[ $[$(ls /data_sata/gitlab_bak/ | wc -l)-30] -ge 0 ] #计算减法 大于30
+ head -n$[$(ls /data_sata/gitlab_bak/ | wc -l)-30] #大于30个的选出来
+
