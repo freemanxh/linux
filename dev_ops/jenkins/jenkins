@@ -81,6 +81,7 @@ Maven Release Plug-in
 rebuilder
 ansicolor
 Monitoring
+gitlab
 timestamper
   options{timestamps()}
 dingtalk
