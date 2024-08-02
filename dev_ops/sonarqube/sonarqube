@@ -95,4 +95,6 @@ https://github.com/xuhuisheng/sonar-l10n-zh/releases/tag/sonar-l10n-zh-plugin-10
 放到./sonar/sonarqube/extensions/plugins 目录下，重启docker
 
 1.8、client
+https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/sonarscanner/
 https://github.com/SonarSource/sonar-scanner-cli
+
