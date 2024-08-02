@@ -83,6 +83,7 @@ rebuilder
 ansicolor
 Monitoring
 gitlab
+Docker Pipeline
 Job Configuration History Plugin
 timestamper
   options{timestamps()}
