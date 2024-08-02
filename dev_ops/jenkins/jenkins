@@ -1,4 +1,4 @@
-jenkins_home 中重要的目录 config.xml   jobs   plugins
+jenkins_home 中重要的目录文件 config.xml   jobs   plugins
 
 1、安装docker jenkins jdk maven gradle
 #docker pull jenkins/jenkins:lts
