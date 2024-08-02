@@ -1,5 +1,7 @@
 jenkins_home 中重要的目录文件 config.xml   jobs   plugins
 
+升级
+
 1、安装docker jenkins jdk maven gradle
 #docker pull jenkins/jenkins:lts
 docker pull jenkins/jenkins:jdk17  #2.464      20240628
@@ -44,6 +46,15 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "$HOME":/home \
   jenkinsci/blueocean
+
+
+2、升级docker安装的jenkins
+wget -P ./docker_data/jenkins_home http://mirrors.jenkins.io/war/latest/jenkins.war
+docker exec -it -u root +ContainerId bash #要以root用户
+cp /usr/share/jenkins/jenkins.war /usr/share/jenkins/jenkinsBAK.war
+cp /var/jenkins_home/jenkins.war /usr/share/jenkins/
+docker restart jenkins
+
 
 
 一、解决插件安装问题，加速Jenkins安装插件速度
