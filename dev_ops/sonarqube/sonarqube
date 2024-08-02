@@ -1,0 +1,8 @@
+1、docker compose 安装
+
+mkdir -p ./sonar/sonarqube/{conf,data,logs,extensions}
+mkdir -p ./sonar/postgres/{postgresql,data}
+chmod -R 777 ./sonar/sonarqube
+
+sudo echo "vm.max_map_count=262144" > /etc/sysctl.conf
+sudo sysctl -p
