@@ -75,6 +75,7 @@ git plug-in
 publish over ssh  #推送文件到远程ssh 服务
 ssh pipeline
 nodejs
+Active Choices Plugin
 Extended Choice Parameter
 Pipeline: Stage View
 Maven Release Plug-in
