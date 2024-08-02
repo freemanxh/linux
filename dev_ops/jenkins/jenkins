@@ -84,6 +84,9 @@ ansicolor
 Monitoring
 gitlab
 Docker Pipeline
+Console Column Plugin
+Version Number
+Hidden Parameter plugin
 Job Configuration History Plugin
 timestamper
   options{timestamps()}
