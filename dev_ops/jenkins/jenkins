@@ -70,6 +70,8 @@ Maven Release Plug-in
 rebuilder
 ansicolor
 Monitoring
+timestamper
+  options{timestamps()}
 dingtalk
   https://jenkinsci.github.io/dingtalk-plugin/
 Role-Based Strategy
