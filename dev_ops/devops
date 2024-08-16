@@ -67,6 +67,7 @@ Nexus Artifact Uploader
 Maven Release Plug-in
 rebuilder
 ansicolor
+http request
 Role-Based Strategy
 -----------------------------------------------
 build user vars
