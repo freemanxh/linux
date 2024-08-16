@@ -1,3 +1,5 @@
+转移到jenkins文件夹中
+
 1、安装docker jenkins jdk maven gradle
 #docker pull jenkins/jenkins:lts
 docker pull jenkins/jenkins:jdk17  #2.464      20240628
