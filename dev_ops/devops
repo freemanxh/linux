@@ -68,6 +68,8 @@ Maven Release Plug-in
 rebuilder
 ansicolor
 http request
+  https://www.cnblogs.com/richered/p/17192742.html
+  https://www.lfhacks.com/tech/jenkins-httprequest/
 Role-Based Strategy
 -----------------------------------------------
 build user vars
