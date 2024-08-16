@@ -77,6 +77,7 @@ ssh pipeline
 nodejs
 Active Choices Plugin
 Extended Choice Parameter
+Nexus Artifact Uploader
 Pipeline: Stage View
 Maven Release Plug-in
 rebuilder
@@ -87,7 +88,11 @@ Docker Pipeline
 Console Column Plugin
 Version Number
 Hidden Parameter plugin
+Build Monitor View
 Job Configuration History Plugin
+http request
+  https://www.cnblogs.com/richered/p/17192742.html
+  https://www.lfhacks.com/tech/jenkins-httprequest/
 sonarqube 两个
 timestamper
   options{timestamps()}
@@ -124,6 +129,45 @@ port:465
 https://juejin.cn/post/6844904119707123719
 https://blog.csdn.net/GLYX5717/article/details/119747860
 ----------------------------------------------
+
+
+blue ocean
+
+Pipeline: Stage View
+
+Maven Release Plug-in
+rebuilder
+ansicolor
+
+
+-----------------------------------------------
+build user vars
+        wrap([$class: 'BuildUser']) {
+          script {
+            //获取当前登录用户账户、姓名、邮箱
+            Applier_id = "${BUILD_USER_ID}"
+            THE_USER_ID=Applier_id
+            Applier_name = "${env.BUILD_USER}"
+            Applier_mail = "${env.BUILD_USER_EMAIL}"
+          }
+          script{
+            println Applier_id
+          }
+        }
+-----------------------------------------------
+Email Extension Plugin
+Email Extension Template
+
+smtp.sina.com
+@sina.com
+用户名:yema_no_reply@sina.com
+#为授权码，不是邮箱密码
+密码:5ae81bcdd09653ff
+使用ssl协议
+port:465
+注意：系统管理员邮件地址要和邮件通知中的用户一致
+https://juejin.cn/post/6844904119707123719
+https://blog.csdn.net/GLYX5717/article/details/119747860
 
 #把jdk&maven移到jenkins的docker mapping目录
 jdk & maven
