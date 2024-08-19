@@ -175,6 +175,11 @@ jdk & maven
 mv /usr/local/jdk/ /localhost/.../jenkins_home/
 mv /usr/local/maven/ /localhost/.../jenkins_home/
 
+
+jenkins备份：
+以下目录与文件都不需要备份
+workspace;builds;fingerprints;backup;*.log;*.jar;*.zip;*.gz;node_modules;*.hprof;*.apk;*.ipa;*.aar
+
 改maven的settings.xml
 一、增加aliyun或华为云的mirror
     <mirror>
