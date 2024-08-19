@@ -50,3 +50,9 @@ RUN sed -i 's#http://archive.ubuntu.com/#http://mirrors.ustc.edu.cn/#' /etc/apt/
 RUN apt-get update --fix-missing 
 RUN apt-get install -y rsync
 CMD ["rsync","--no-detach","--daemon"]
+
+
+===============================
+对于开了buildx的 docker buildx build [--driver docker-container] --load -t my-image:latest .
+
+
