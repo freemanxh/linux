@@ -1,3 +1,31 @@
+ubuntu 24:04 source
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_noble/ noble main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_noble/ noble-security main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_noble/ noble-updates main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_noble/ noble-proposed main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_noble/ noble-backports main restricted universe multiverse
+
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_noble/ noble main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_noble/ noble-security main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_noble/ noble-updates main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_noble/ noble-proposed main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_noble/ noble-backports main restricted universe multiverse
+
+ubuntu 22:04 source
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-security main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-updates main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-proposed main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_ustc_jammy/ jammy-backports main restricted universe multiverse
+
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-security main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-updates main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-proposed main restricted universe multiverse
+deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-backports main restricted universe multiverse
+
+
+
 #改ip 
 
 cat >> 00-installer-config.yaml << EOF
