@@ -1,0 +1,19 @@
+1、wx
+Ubuntu22.04安装微信(linux官方版)
+说明：我们安装的是铜豌豆Linux优化后的版本，免费开源，分享一下个人体验，我使用的Ubuntu版本是最新的22.04.4LTS版本，20.04版本以上应该都可以兼容使用
+步骤：
+`wget -c -O atzlinux-v12-archive-keyring_lastest_all.deb https://www.atzlinux.com/atzlinux/pool/main/a/atzlinux-archive-keyring/atzlinux-v12-archive-keyring_lastest_all.deb
+
+sudo apt -y install ./atzlinux-v12-archive-keyring_lastest_all.deb
+
+sudo apt update
+
+sudo cp /etc/lsb-release /etc/lsb-release.Ubuntu
+
+sudo apt -y install com.tencent.wechat
+
+sudo apt -y install electronic-wechat-icons-atzlinux
+
+sudo cp /etc/lsb-release /etc/lsb-release.wechat`
+
+
