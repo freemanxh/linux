@@ -16,4 +16,16 @@ sudo apt -y install electronic-wechat-icons-atzlinux
 
 sudo cp /etc/lsb-release /etc/lsb-release.wechat`
 
+2、vnc viewer
+3、snap能安装的为
+audacious
+firefox
+mpv
+vlc
 
+
+
+4、termius
+dingding
+finalshell
+baidupan
