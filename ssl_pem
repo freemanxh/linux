@@ -6,6 +6,9 @@ sudo apt install socat
 ./acme.sh --install -m 183618@qq.com
 alias acme.sh=~/.acme.sh/acme.sh
 
+1.1 重要，要保持最新 acme.sh --upgrade
+
+
 2、证书申请
 acme.sh --issue --dns -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
 增加txt解析 #需要把返回字符串增加到域名管理系统中
