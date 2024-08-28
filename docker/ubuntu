@@ -115,3 +115,6 @@ sudo vi /etc/docker/daemon.json
 "registry-mirrors": ["https://docker-repo.yematech.cc:28081"]
 "registry-mirrors": ["http://192.168.0.83:8082"]
 
+
+docker login -u admin -p Harbor12345 192.168.0.99:80
+
