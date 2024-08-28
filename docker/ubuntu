@@ -109,3 +109,9 @@ sudo vi /etc/docker/daemon.json
 
 目前还能用的加速镜像 20240612
 ["https://ustc-edu-cn.mirror.aliyuncs.com/","https://ccr.ccs.tencentyun.com/","https://docker.m.daocloud.io/"]
+
+#############################################################################
+公司用的加速代理 
+"registry-mirrors": ["https://docker-repo.yematech.cc:28081"]
+"registry-mirrors": ["http://192.168.0.83:8082"]
+
