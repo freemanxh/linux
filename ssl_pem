@@ -1,3 +1,6 @@
+https://cloud.tencent.com/developer/article/2367988
+https://docs.certcloud.cn/docs/installation/auto/acme/acmesh/
+
 1、安装 acme
 curl https://gitee.com/neilpang/acme.sh | sh 
 
@@ -13,6 +16,16 @@ alias acme.sh=~/.acme.sh/acme.sh
 acme.sh --issue --dns -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
 增加txt解析 #需要把返回字符串增加到域名管理系统中
 acme.sh --renew -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+2.1、证书重续，先要删除掉 
+acme.sh --remove -d *.yematech.cc
+acme.sh --issue --dns -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
+增加txt解析 #需要把返回字符串增加到域名管理系统中
+acme.sh --renew -d *.yematech.cc --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --install-cert -d *.yematech.cc \
+        --key-file /home/yematech/ssl/yematech.cc/key.pem \
+        --cert-file /home/yematech/ssl/yematech.cc/cert.pem \
+        --fullchain-file /home/yematech/ssl/yematech.cc/fullchain.pem
 
 3、自动登录续签（还没有通过）
 用户登录名称 
