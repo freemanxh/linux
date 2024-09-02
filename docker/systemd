@@ -1,0 +1,47 @@
+1、描述文档
+/etc/systemd/system/sqlite.service
+[Unit] 　　
+ Description=SQLite Docker Server
+ After=docker.service　 #Docker服务启动之后启动该单元
+ Requires=docker.service　　#为了让该单元正常运行，Docker服务必须处于正常运行状态
+[Service]
+Restart=always
+ExecStartPre=-/bin/touch /tmp/sqlitedbs/test　　　
+ExecStartPre=-/bin/touch /tmp/sqlitedbs/live　　#这几行代码确保服务启动之前SQLite的数据库文件是存在的，touch命令行之前的-告诉systemd：如果该命令返回错误代码则表明启动失败
+ExecStartPre=/bin/bash  -c '/usr/bin/docker kill sqliteserver || /bin/true'　
+ExecStartPre=/bin/bash  -c '/usr/bin/docker rm -f sqliteserver || /bin/true'   #ExecStartPre定义了服务单元被启动之前执行的命令。为了确保容器在用户启动之前已被删除，这里使用了一个前置命令将其删除
+ExecStartPre=/usr/bin/docker pull dockerinpractice/docker-compose-sqlite　　
+ExecStart=/usr/bin/docker run --name sqliteserver \
+ -v /tmp/sqlitedbs/test:/opt/sqlite/db \
+ dockerinpractice/docker-compose-sqlite /bin/bash -c \
+ 'socat TCP-L:12345,fork,reuseaddr \
+ EXEC:"sqlite3 /opt/sqlite/db",pty'
+ExecStop=/usr/bin/docker rm -f sqliteserver
+[Install]
+WantedBy=multi-user.target
+
+/etc/systemd/system/sqliteproxy.service
+[Unit]
+Description=SQLite Docker Proxy
+After=sqliteserver.service　　
+Requires=sqliteserver.service　　
+[Service]
+Restart=always
+ExecStartPre=/bin/bash -c '/usr/bin/docker kill sqliteproxy || /bin/true'
+ExecStartPre=/bin/bash -c '/usr/bin/docker rm -f sqliteproxy || /bin/true'
+ExecStartPre=/usr/bin/docker pull dockerinpractice/docker-compose-sqlite
+ExecStart=/usr/bin/docker run --name sqliteproxy \
+ -p 12346:12346 --link sqliteserver:sqliteserver \
+dockerinpractice/docker-compose-sqlite /bin/bash \
+ -c 'socat TCP-L:12346,fork,reuseaddr TCP:sqliteserver:12345'　　#　该命令用于运行容器
+ExecStop=/usr/bin/docker rm -f sqliteproxy
+[Install]
+WantedBy=multi-user.target
+
+2、运行程序
+$ sudo systemctl enable /etc/systemd/system/sqliteserver.service
+ln -s '/etc/systemd/system/sqliteserver.service' \
+'/etc/systemd/system/multi-user.target.wants/sqliteserver.service'
+$ sudo systemctl enable /etc/systemd/system/sqliteproxy.service
+ln -s '/etc/systemd/system/sqliteproxy.service' \
+'/etc/systemd/system/multi-user.target.wants/sqliteproxy.service'
