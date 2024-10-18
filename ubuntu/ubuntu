@@ -27,7 +27,6 @@ deb https://nexus.yematech.cc:28081/repository/apt_proxy_aliyun_jammy/ jammy-bac
 
 
 #改ip 
-
 cat >> 00-installer-config.yaml << EOF
 network:
   version: 2
@@ -51,6 +50,9 @@ network:
 
 
 #cat 改最简ip
+
+先用ip addr查一下网卡的名称 enp1s0这种
+
 cat >> 00-installer-config.yaml << EOF
 network:
   version: 2
