@@ -152,6 +152,12 @@ sudo sysctl -p
 /etc/init.d/procps restart
 
 exit 0
+
+=====================================================================
+
+更新snap-store
+ps aux | grep snap-store
+sudo snap refresh snap-store
 ==================================================================
 
 # mount lvm disk
