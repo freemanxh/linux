@@ -1,3 +1,8 @@
+* * * * * 每分钟
+10 * * * * 第小时第10分钟执行一次任务
+0 1 * * * 第天1点执行一次任务 
+
+
 
 #cron
 */1 * * * * rsync -avz --delete /data/hdd2/photos/ /data/hdd3/photos
