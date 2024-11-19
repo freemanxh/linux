@@ -160,6 +160,13 @@ sudo sysctl -p
 
 exit 0
 
+#6 改dns 需要测试???
+$ sudo systemctl stop systemd-resolved.service
+$ sudo systemctl disable systemd-resolved.service
+$ sudo rm /etc/resolv.conf
+$ echo -e nameserver 8.8.8.8 \\nnameserver 168.95.1.1 | sudo tee /etc/resolv.conf
+$ sudo reboot
+
 =====================================================================
 
 更新snap-store
