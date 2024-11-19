@@ -122,8 +122,14 @@ sudo timedatectl set-timezone Asia/Shanghai #手动设置时区
 #3、禁用swap
 在/etc/fstab中注掉swap.img这行
 
+#4、禁用去掉cloud-init
+$ sudo apt purge cloud-init -y
+$ sudo rm -rf /etc/cloud && sudo rm -rf /var/lib/cloud/
+$ sudo apt autoremove -y
+$ sudo reboot
 
-#4、禁用ipv6 方法1
+
+#5、禁用ipv6 方法1
 sudo cp -v /etc/default/grub /etc/default/grub.bak
 sudo vim /etc/default/grub
 #增加以下行
