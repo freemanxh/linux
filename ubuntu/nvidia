@@ -1,15 +1,12 @@
-无图形下安装显卡驱动
-22.04
+无图形下安装显卡驱动 （22.04 server 通过）
 
-删除原有驱动
+删除原有驱动(没有装过显卡的不用执行下面3行)
 sudo apt-get purge nvidia*
 sudo apt-get autoremove
 sudo ./NIVIDIA-Linux-X86_64-384.59.run --uninstall
 
-
 sudo apt update
 sudo apt upgrade -y
-
 sudo apt install build-essential gcc-multilib  dkms linux-headers-$(uname -r)
 
 
