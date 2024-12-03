@@ -1,0 +1,52 @@
+无图形下安装显卡驱动
+22.04
+
+删除原有驱动
+sudo apt-get purge nvidia*
+sudo apt-get autoremove
+sudo ./NIVIDIA-Linux-X86_64-384.59.run --uninstall
+
+
+sudo apt update
+sudo apt upgrade -y
+
+sudo apt install build-essential gcc-multilib  dkms linux-headers-$(uname -r)
+
+
+编辑 /etc/modprobe.d/blacklist-nouveau.conf 文件，添加以下内容：
+blacklist nouveau
+blacklist lbm-nouveau
+options nouveau modeset=0
+alias nouveau off
+alias lbm-nouveau off
+
+关闭nouveau：
+sudo echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
+
+
+
+$ sudo update-initramfs -u
+$ sudo reboot
+
+获取kernel source 
+$ apt-get install linux-source
+$ apt-get install linux-headers-x.x.x-x-generic
+其中x.x.x-x-generic可以通过$(uname -r)替换得到
+
+关掉x graphic 服务
+sudo systemctl stop lightdm(or sudo service lightdm stop)
+sudo systemctl stop gdm
+sudo systemctl stop kdm
+
+
+sudo ./NVIDIA-Linux-x86_64-560.35.03.run
+1、32bit  no
+2、DKMS no
+3、选NVIDIA闭源驱动
+4、x confile  yes
+
+挂载Nvidia驱动
+modprobe nvidia
+
+检查驱动是否安装成功
+nvidia-smi
