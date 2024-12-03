@@ -268,7 +268,11 @@ virt-clone -o kvm_name1 -n kvm_name2 -f /data/kvm/ubuntu_1_new.qcow2
 16、xfs_growfs /mnt/data                            # XFS文件系统扩容，假设/mnt/data是挂载点
 
 
-
+=====================================================================
+#扩展物理机
+1、执行命令lvdisplay查看系统逻辑分区信息、并确认是否有真实可用的硬盘空间，如果没有需要增加物理硬盘。
+2、执行命令lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv，注意后面的逻辑分区名字使用lvdisplay命令获取到的
+3、执行 命令resize2fs /dev/ubuntu-vg/ubuntu-lv 刷新逻辑卷 
 
 ======================================================================
 
