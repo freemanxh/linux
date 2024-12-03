@@ -4,6 +4,7 @@ uname -r
 查看可用内核 
 dpkg --get-selections | grep linux-image
 
+#以后开机菜单可选
 sudo vim /etc/default/grub
 增加
 GRUB_SAVEDEFAULT=true
@@ -12,14 +13,13 @@ GRUB_DEFAULT=saved
 #GRUB_TIMEOUT_STYLE=hidden
 GRUB_TIMEOUT=30
 
-
-
 查看 grub version  #grub 2.0 以上有很大的区别
 grub-install --version
 
-查看可用内核版本]
+查看可用内核版本
 sudo apt-get update
 sudo apt-cache search linux-image
+选linux-image-5.19.0-50-generic （测试通过）
 选择要安装的内核
 sudo apt-get install -y linux-image-5.15.0-60-generic linux-headers-5.15.0-60-generic linux-modules-5.15.0-60-generic linux-modules-extra-5.15.0-60-generic
 
@@ -30,11 +30,6 @@ cat /boot/grub/grub.cfg |grep menuentry
 GRUB_DEFAULT="Ubuntu，Linux 5.15.0-60-generic"
 
 sudo update-grub
-
 改提示中给出的名称
-
-sudo update-grub
-
-
 sudo update-grub
 sudo reboot
