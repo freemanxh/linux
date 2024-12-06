@@ -6,6 +6,8 @@ sudo resolvectl flush-caches
 resolvectl status
 
 ========================================================
+/etc/ssh/sshd_config.d/default.conf
+
 禁止使用用户名与密码登录
 X11Forwarding no
 PasswordAuthentication no
