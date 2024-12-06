@@ -4,3 +4,29 @@ sudo resolvectl flush-caches
 
 查看缓存
 resolvectl status
+
+========================================================
+禁止使用用户名与密码登录
+X11Forwarding no
+PasswordAuthentication no
+PermitRootLogin prohibit-password
+UseDNS no
+HostbasedAcceptedKeyTypes +ssh-rsa
+PubkeyAcceptedKeyTypes +ssh-rsa
+
+UsePAM no
+PubkeyAuthentication yes
+ChallengeResponseAuthentication no
+
+
+
+使用用户名与密码登录
+X11Forwarding no
+PasswordAuthentication yes
+PermitRootLogin prohibit-password
+UseDNS no
+#HostbasedAcceptedKeyTypes +ssh-rsa
+#PubkeyAcceptedKeyTypes +ssh-rsa
+UsePAM yes
+PubkeyAuthentication no
+ChallengeResponseAuthentication yes
