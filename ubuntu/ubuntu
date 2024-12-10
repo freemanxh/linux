@@ -128,8 +128,11 @@ sudo rm -rf /etc/cloud && sudo rm -rf /var/lib/cloud/
 sudo apt autoremove -y
 sudo reboot
 
+#5、改hostname
+sudo vim /etc/hostname
+sudo reboot
 
-#5、禁用ipv6 方法1
+#6、禁用ipv6 方法1
 sudo cp -v /etc/default/grub /etc/default/grub.bak
 sudo vim /etc/default/grub
 #增加以下行
