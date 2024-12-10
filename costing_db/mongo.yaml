@@ -148,6 +148,14 @@ config={_id:"mongoRS",members:[
 rs.initiate(config)
 cfg=rs.conf()
 
+
+#如果不能config
+rs.config()
+
+rs.reconfig(config, {force: true})
+
+=================================================
+
 rs.status()
 rs.printReplicationInfo()
 
