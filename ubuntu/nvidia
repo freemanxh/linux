@@ -30,6 +30,7 @@ sudo systemctl stop gdm
 sudo systemctl stop kdm
 
 sudo ./NVIDIA-Linux-x86_64-560.35.03.run
+0、NVIDIA Proprietary(nvidia专用)   或   MIT/GPL(开源)  选 专用
 1、32bit  no
 2、DKMS no
 3、选NVIDIA闭源驱动
