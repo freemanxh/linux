@@ -1,0 +1,29 @@
+docker安装
+docker run -d --name=hgdb_test2 --privileged=true -p 5868:5866  \ 
+-v ./hgdb458_2:/home/highgo/hgdb -e TZ="Asia/Shanghai" -e LANG="en_US.utf8" \ 
+-e POSTGRES_HOST_AUTH_METHOD="md5" -e POSTGRES_PASSWORD="Hello@1234" \ 
+-e POSTGRES_INITDB_ARGS="-A md5 -e sm4 -c 'echo 12345678'  -E 'UTF8'" \
+qiuchenjun/highgo:hgdb-see-4.5.8
+
+
+#-A md5 -e sm4 -c 'echo 12345678      这个地方，-A 决定加密方式
+
+
+
+#初创建用户与数据库
+docker exec -i -e PGPASSWORD=Hello@1234 hgdb_test2 psql highgo sysdba <<-"EOF"
+create user highgo  password 'Hello@1234' valid until 'infinity';
+create database yema with owner=highgo encoding=utf8 connection limit=-1;
+EOF
+
+#进入highgo命令行
+docker exec -it hgdb_test psql yema sysdba    #highgo为数据库名
+
+
+#以下没有测通
+修改过期时间
+ALTER ROLE alice VALID UNTIL '2024-12-31 23:59:59';
+查询过期时间
+SELECT rolname, rolvaliduntil FROM pg_authid WHERE rolname = 'alice';
+-- 或者使用 pg_roles 视图：
+SELECT rolname, rolvaliduntil FROM pg_roles WHERE rolname = 'alice';
