@@ -20,10 +20,12 @@ EOF
 docker exec -it hgdb_test psql yema sysdba    #highgo为数据库名
 
 
-#以下没有测通
+进入highgo命令行
+docker exec -it hgdb_test psql yema sysdba    #highgo为数据库名
+
+docker exec -it hgdb-see-4.5.8 psql yema sysdba  #syssso  syssao#
+
 修改过期时间
-ALTER ROLE alice VALID UNTIL '2024-12-31 23:59:59';
+ALTER ROLE highgo VALID UNTIL '2025-01-31 23:59:59';
 查询过期时间
-SELECT rolname, rolvaliduntil FROM pg_authid WHERE rolname = 'alice';
--- 或者使用 pg_roles 视图：
-SELECT rolname, rolvaliduntil FROM pg_roles WHERE rolname = 'alice';
+SELECT rolname, rolvaliduntil FROM pg_authid WHERE rolname = 'highgo';
