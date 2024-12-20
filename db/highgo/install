@@ -11,7 +11,7 @@ qiuchenjun/highgo:hgdb-see-4.5.8
 
 
 #初创建用户与数据库
-docker exec -i -e PGPASSWORD=Hello@1234 hgdb_test2 psql highgo sysdba <<-"EOF"
+docker exec -i -e PGPASSWORD=Hello@1234 hgdb_test3 psql highgo sysdba <<-"EOF"
 create user highgo  password 'Hello@1234' valid until 'infinity';
 create database yema with owner=highgo encoding=utf8 connection limit=-1;
 EOF
@@ -29,3 +29,7 @@ docker exec -it hgdb-see-4.5.8 psql yema sysdba  #syssso  syssao#
 ALTER ROLE highgo VALID UNTIL '2025-01-31 23:59:59';
 查询过期时间
 SELECT rolname, rolvaliduntil FROM pg_authid WHERE rolname = 'highgo';
+
+#测试没有通过
+ALTER ROLE highgo VALID UNTIL 'infinity';
+ALTER USER highgo RESET FAILED_LOGIN_ATTEMPTS;
