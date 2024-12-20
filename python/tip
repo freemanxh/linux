@@ -1,0 +1,1 @@
+pip3 install -r requirements.txt -i 换源地址 #导入python包。按文件列表
