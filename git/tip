@@ -1,0 +1,2 @@
+git config --global credential.helper store #存储git 密码
+
