@@ -1,0 +1,85 @@
+一、解包部署(单机)：
+1、下载最新的xxx.zip
+2、解压，并安装jdk21
+3、进入conf目录、nifi.properties 注掉http方式，开放https方式，ipurl改为192.168.0.249。
+4、进入conf目录，删除 .p12文件：  rm -rf *.p12
+5、生成新的证书
+# 生成RSA私钥（无密码，生产环境中应设置一个）
+openssl genpkey -algorithm RSA -out nifi.key
+# 创建自签名证书请求（填写相关信息，如Common Name应为您的服务器IP地址）
+openssl req -new -key nifi.key -out nifi.csr
+# 使用私钥和CSR生成自签名证书，有效期可以自行调整（此处设置3650天）
+openssl x509 -req -days 3650 -in nifi.csr -signkey nifi.key -out nifi.crt
+# 将私钥和证书合并到一个PKCS12文件中，并设置一个密码（例如：abcdef123456）
+openssl pkcs12 -export -in nifi.crt -inkey nifi.key -out nifi.p12 -name nifi -password pass:abcdef123456
+
+6、修改nifi.properties
+nifi.sensitive.props.key=abcdef123456
+nifi.security.keystore=./conf/nifi.p12
+nifi.security.keystorePasswd=abcdef123456
+nifi.security.keyPasswd=abcdef123456
+nifi.security.truststore=./conf/nifi.p12
+nifi.security.truststorePasswd=abcdef123456
+
+7、进bin目录
+./nifi.sh set-single-user-credentials admin abcdef123456
+
+8、启动 ./nifi.sh start
+
+9、https://192.168.0.249:8443/nifi
+
+
+二、docker部署（证书没有通过）
+1、docker pull apache/nifi:latest
+2、docker run --name nifi -d apache/nifi:latest #先启动一个容器，把conf目录给copy出来，便于后面mapping，并做相应的更改。
+3、docker cp nifi:/opt/nifi/nifi-current/conf /root/data/nifi/ #cp conf目录
+4、docker rm -f nifi
+5、chmod 777 -R ./nifi/
+6、
+docker run -p 8443:8443  --privileged=true \
+--name nifi \
+-e NIFI_WEB_HTTPS_PORT=8443 \
+-e NIFI_CLUSTER_IS_NODE=false \
+-e SINGLE_USER_CREDENTIALS_USERNAME=admin \
+-e SINGLE_USER_CREDENTIALS_PASSWORD=123456789012 \
+-v ./nifi/conf:/opt/nifi/nifi-current/conf \
+-v ./nifi/data:/opt/nifi/nifi-current/data  \
+-v ./nifi/logs:/opt/nifi/nifi-current/logs  \
+-d apache/nifi:latest
+#密码必须至少为12个字符
+
+
+
+docker run -p 8080:8080 --privileged=true \
+--name nifi \
+-e NIFI_WEB_HTTPS_PORT=8443 \
+-e NIFI_CLUSTER_IS_NODE=false \
+-e SINGLE_USER_CREDENTIALS_USERNAME=admin \
+-e SINGLE_USER_CREDENTIALS_PASSWORD=123456789012 \
+-v ./nifi/conf:/opt/nifi/nifi-current/conf \
+-v ./nifi/data:/opt/nifi/nifi-current/data  \
+-d apache/nifi:latest
+
+
+7、可以查看系统生成的用户与密码 docker logs -f nifi | grep Generated 
+8、不能通过ip访问，改host，由系统生成的地址url
+192.168.88.141(自己的ip) 95cf55450ad8:8443
+192.168.88.141(自己的ip) 95cf55450ad8
+
+
+三、docker-compose(证书没有通过)
+version: "3.9"
+services:
+  nifi:
+    container_name: nifi-instance # 指定容器名称
+    # ... 其他配置
+    image: apache/nifi:latest # 或者指定版本，例如 apache/nifi:1.20.0 2.1.0
+    ports:
+      - "8443:8443" # 映射 HTTPS 端口，如果需要HTTP，则映射8080端口
+    environment:
+      - NIFI_WEB_HTTPS_PORT=8443 # 设置 HTTPS 端口，如果使用HTTP，则设置为NIFI_WEB_HTTP_PORT=8080
+      - NIFI_CLUSTER_IS_NODE=false # 设置为单节点模式
+    volumes:
+      - ./nifi/data:/opt/nifi/nifi-current/data # 挂载数据卷，持久化数据
+      - ./nifi/logs:/opt/nifi/nifi-current/logs # 挂载日志卷
+    restart: unless-stopped # 容器退出时自动重启
