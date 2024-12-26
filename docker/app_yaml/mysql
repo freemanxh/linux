@@ -1,0 +1,21 @@
+1、yaml
+services:
+  mysql:
+    container_name: mysql
+    restart: unless-stopped
+    image: mysql:8.2
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql/conf.d:/etc/mysql/conf.d
+      - ./data/mysql/data:/var/lib/mysql
+
+2、
+CREATE DATABASE kettle CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'kettle_user'@'%' IDENTIFIED BY 'pass_123456';
+GRANT ALL PRIVILEGES ON kettle.* TO 'kettle_user'@'%';
+#GRANT SELECT, INSERT, UPDATE, DELETE ON kettle.* TO 'kettle_user'@'localhost';
+FLUSH PRIVILEGES;
