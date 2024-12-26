@@ -16,6 +16,10 @@ services:
       - DB_USER=kettle_user # MySQL 用户名
       - DB_PASS=pass_123456 # MySQL 密码
 
+https://blog.csdn.net/weixin_43281875/article/details/121161789
+https://zhuanlan.zhihu.com/p/137383200
+https://blog.csdn.net/Jmayday/article/details/102860582
+
 
 2、
 1)进入kettle容器  docker exec -it -uroot c_name /bin/bash
