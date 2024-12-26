@@ -1,3 +1,5 @@
+daemon.json地址：https://1ms.run/
+
 清overlay2 空间  (会删除所有的image)
 docker system prune -a
 
