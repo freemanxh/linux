@@ -1,0 +1,16 @@
+version:
+services:
+  webspoon:
+    image: hiromuhota/webspoon
+    container_name: webspoon-kettle
+    ports:
+      - "8084:8080"
+    volumes:
+      - ./kettle:/opt/pentaho/kettle
+    restart: always
+    environment:
+      - DB_HOST=192.168.0.249 # MySQL 主机地址
+      - DB_PORT=3306 # MySQL 端口
+      - DB_NAME=kettle # MySQL 数据库名
+      - DB_USER=kettle_user # MySQL 用户名
+      - DB_PASS=pass_123456 # MySQL 密码
