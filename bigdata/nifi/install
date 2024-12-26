@@ -18,6 +18,7 @@ openssl pkcs12 -export -in nifi.crt -inkey nifi.key -out nifi.p12 -name nifi -pa
 https://geek.zshipu.com/post/bi/%E5%A4%A7%E6%95%B0%E6%8D%AE/Nifi-Apache-Nifi-%E5%9F%BA%E7%A1%80%E6%8C%87%E5%8D%97%E5%A4%A7%E5%85%A8/
 https://www.cnblogs.com/jobbible/p/12400610.html
 https://pan.baidu.com/s/15J1lxGdXid88YCydB03-2A
+https://www.cnblogs.com/jobbible/p/12400596.html
 
 6、修改nifi.properties
 nifi.sensitive.props.key=abcdef123456
