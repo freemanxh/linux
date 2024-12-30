@@ -1,0 +1,69 @@
+控制器为 GetFile->ConvertRecord(ExcelReader,JsonRecordSetWriter)->JoltTransformRecord(换名称)(JsonTreeReader,AvroRecordSetWriteer)->JoltTransformRecord(AvroReader,AvroRecordSetWriter)->PutDatabaseRecord(AvroReader)
+
+一、控制器的使用
+1）JoltTransformRecord（替换title名称为需要的title名称）
+Jolt Transform 为 Shift
+Jolt Specification为:
+     {
+      "id": "id",
+      "设备名称": "equipment_name",
+      "单位": "unit",
+      "规格型号": "specification_model",
+      "单价元": "price_per_unit",
+      "供货厂家": "supplier_name",
+      "采购日期": "purchase_date",
+      "合同编号": "contract_number",
+      "项目编号": "project_id",
+      "备注": "notes"
+    }
+以下是此功能中：不一定适用于所有。
+Reader:JsonTreeReader
+Writer: AvroRecordSetWriter
+
+2）JoltTransformRecord（转换long型时间为标准格式,此为Unix标准时间）
+Jolt Transform 为 Modify - Default
+Jolt Specification为：
+{
+    "purchase_date": "=toIsoString(@(1,purchase_date))"
+}
+以下是此功能中：不一定适用于所有。
+Reader: AvroReader
+Writer: AvroRecordSetWriter
+
+
+二、服务配置使用
+1）JsonTreeReader  //读取json方式的数据。如果到数据库中，需注明相应的类型，特别注意日期、时间型
+例子：name为从excel中读取到的title标题，第一级name为自定义名称。
+
+Schema Access Strategy 为：Use 'Schema Text' Property
+Schema Text: {
+  "type": "record",
+  "name": "equipmentprice",
+  "fields": [
+    { "name": "id", "type": "int" }, 
+    { "name": "设备名称", "type": "string"},
+    { "name": "单位", "type": "string"},
+    { "name": "规格型号", "type": "string"},
+    { "name": "单价元", "type": "string"}, 
+    { "name": "供货厂家", "type": "string"} ,
+    { "name": "采购日期", "type": ["null", "long"], "logicalType": "timestamp-millis"}, 
+    { "name": "合同编号", "type": "string"}, 
+    { "name": "项目编号", "type": "int"},
+    { "name": "备注", "type": "string" } 
+  ]
+}
+
+Date Format:yyyy-MM-dd
+Time Format:HH:mm:ss
+Timestamp Format:yyyy-MM-dd HH:mm:ss
+
+2)AvroRecordSetWriter
+Schema Write Strategy为：Embed Avro Schema
+Schema Access Strategy为：Inherit Record Schema
+
+3)AvroReader
+Schema Access Strategy为：Use Embedded Avro Schema
+
+
+
+
