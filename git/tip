@@ -1,6 +1,9 @@
-1、git config --global credential.helper store #存储git 密码
+1、本地存储git的用户名与密码
+git config --global credential.helper store #存储git 密码
 
-2、git remote set-url origin http://    
+2、关联远程的代码库
+git remote set-url origin http://    
+
 
 xuhui
 ymkj2018!
