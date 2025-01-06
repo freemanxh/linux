@@ -46,11 +46,13 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on pcie_acs_override=downstream"
 
 #---------------------------------------------------------------------------------
 #PVE安装openwrt
+https://firmware-selector.immortalwrt.org/
 
 #下载无efi的版本
 https://github.com/firkerword/openwrt-Exclusive/releases
 https://www.right.com.cn/forum/thread-1811791-1-1.html
 https://www.right.com.cn/forum/thread-8316295-1-1.html
+
 https://post.smzdm.com/p/arrq4q3g/
 
 
