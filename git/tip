@@ -25,6 +25,7 @@ do
         cd "/home/liudian/hdd/mv/code/$i"
         pwd
         curl --request POST --header "PRIVATE-TOKEN:xxxxxx" "https://gitlab-d.smarte.tech:50010/api/v4/projects" --data "name=$i&description=This is a $i project&visibility=internal"
+
         git remote set-url origin https://gitlab-d.smarte.tech:50010/xuhui/$i.git
         #git remote add origin https://gitlab-d.smarte.tech:50010/xuhui/$i.git
         echo "set-url ok"
