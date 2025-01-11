@@ -34,9 +34,12 @@
 	#激活环境
 	conda activate myvllm
 	
-	改pip为清华源
+	改pip为清华源 /home/xuhui/.pip/pip.conf
 	[global]
 	index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+	or 
+	index-url = https://mirrors.aliyun.com/pypi/simple/
+	trusted-host = mirrors.aliyun.com
 	
 	验证：
 	pip config list
