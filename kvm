@@ -1,5 +1,12 @@
 查询支持的os及edition
 
+virt-install --osinfo list
+
+debian11, debianbullseye
+debian10, debianbuster
+--osinfo name=debian10
+
+以下废弃了
 sudo apt install libosinfo-bin
 osinfo-query os
 osinfo-query os rhel7
