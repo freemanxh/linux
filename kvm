@@ -118,6 +118,18 @@ virt-install \
     --location /home/xuhui/iso/ubuntu-22.04.2-live-server-amd64.iso,initrd=casper/initrd,kernel=casper/vmlinuz 
 
 
+#安装fnos 
+virt-install \
+    --virt-type kvm \
+    --name fnos \
+    --ram 8192 \
+    --vcpus 4 \
+    --cpu host-passthrough,cache.mode=passthrough \
+    --disk path=/kvm/fnos.qcow2,size=120,bus=virtio,format=qcow2 \
+    --os-variant debian10 \
+    --network bridge=br0,model=virtio \
+    --graphics vnc,password=654321,port=5902,listen=0.0.0.0 \
+    --cdrom /home/xuhui/TRIM.iso
 
 #安装测试环境
 virt-install \
