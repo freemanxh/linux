@@ -1,3 +1,9 @@
+查询支持的os及edition
+
+sudo apt install libosinfo-bin
+osinfo-query os
+osinfo-query os rhel7
+
 #安装kvm
 
 
