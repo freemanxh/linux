@@ -15,8 +15,8 @@ mirrors.vsean.net/openwrt 修改为 mirror.sjtu.edu.cn/immortalwrt
 opkg update
 
 https://zhuanlan.zhihu.com/p/609066343
-
-0、argon
+=========================================================================
+0、argon     安装zh-cn
 
 1、Adbyby plus			广告PB大师
 基本设置：运行模式 plus+模式(只过滤列表内域名结合ABP名单。)
