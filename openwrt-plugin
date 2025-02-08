@@ -106,8 +106,11 @@ https://post.smzdm.com/p/a5ogxd57/
 https://blog.csdn.net/Reven_L/article/details/109003476
 ==========================================================
 12、openclash
-clash 先安，下方的没有求证
-配置记阅中增加订阅地址
+clash 先安，
+需要先升级，升级需要能翻墙。
+配置记阅中增加订阅地址，增加后，启动clash，并改网络
+
+下方的没有求证
 #安装依赖
 * luci
 * luci-base
