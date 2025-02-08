@@ -214,6 +214,21 @@ virt-install \
 	--vnc --vncport=5911 --vnclisten=0.0.0.0
 
 
+
+
+
+virt-install \
+	--name=openwrt \
+	--vcpus=2 \
+	--ram=2048 \
+	--osinfo name=debian11 \
+	--disk path=/home/xuhui/immortalwrt-24.10.0-x86-64-generic-ext4-combined.img \
+	--autostart \
+	--network bridge=br0,model=e1000 \
+	--boot hd \
+	--vnc --vncport=5911 --vnclisten=0.0.0.0
+
+
 #--import --noautoconsole
 #--force --import --autostart \
 
