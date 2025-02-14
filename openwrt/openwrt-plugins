@@ -8,6 +8,7 @@ immortalwrt-23.05.1-x86-64-generic-ext4-combined.img
 vim /etc/config/network
 只需要改ip和netmask就行了,改好后，service network restart
 其它的网络设置，gateway,dns，在管理界面中设置
+通常eth0 为 wan
 
 /etc/opkg/distfeeds.conf
 mirrors.vsean.net/openwrt 修改为 mirror.sjtu.edu.cn/immortalwrt
