@@ -35,6 +35,20 @@ acme.sh --install-cert -d *.yematech.cc \
         --cert-file /home/yematech/ssl/yematech.cc/cert.pem \
         --fullchain-file /home/yematech/ssl/yematech.cc/fullchain.pem
 
+#50上申请，60上/data/ssl/yematech.cc
+
+
+acme.sh --remove -d *.yematech.cn
+acme.sh --issue --dns -d *.yematech.cn --yes-I-know-dns-manual-mode-enough-go-ahead-please
+有可能增加 --force
+增加txt解析 #需要把返回字符串增加到域名管理系统中
+acme.sh --renew -d *.yematech.cn --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --install-cert -d *.yematech.cn \
+        --key-file /home/yematech/ssl/yematech.cn/key.pem \
+        --cert-file /home/yematech/ssl/yematech.cn/cert.pem \
+        --fullchain-file /home/yematech/ssl/yematech.cn/fullchain.pem
+
+
 #50上申请，60上/data/ssl/yematech.cn
 =====================================================================
 
