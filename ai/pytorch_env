@@ -37,6 +37,7 @@ conda activate python27
 
 2、安装CUDA 和 cuDNN的步骤
 1）安装显卡驱动
+/ubuntu/nvidia 文件中详细步骤
 验证：nvidia-smi
 lspci | grep -i nvidia
 查看显卡型号对应的显卡
