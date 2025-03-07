@@ -1,2 +1,10 @@
 1、git clone https://github.com/THUDM/GLM-4.git
 2、pip install -r requirements.txt
+3、model: git clone https://huggingface.co/THUDM/glm-4-9b-chat-hf
+4、modelscope也一样：git clone https://www.modelscope.cn/ZhipuAI/glm-4-9b-chat-hf.git
+5、/project/GLM-4-main/basic_demo/trans_cli_demo.py  #改model地址
+6、python3 ./trans_cli_demo.py
+
+
+
+
