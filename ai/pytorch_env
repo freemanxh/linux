@@ -104,5 +104,5 @@ conda install nb_conda -y
 验证：cuda是否可用
 python3
 import torch
-torch.cuda.is_available()
+print(torch.cuda.is_available())
 
