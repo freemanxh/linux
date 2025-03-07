@@ -1,16 +1,16 @@
 无图形下安装显卡驱动 （22.04 server 通过）
 
-删除原有驱动(没有装过显卡的不用执行下面3行)
+1、删除原有驱动(没有装过显卡的不用执行下面3行)
 sudo apt-get purge nvidia*
 sudo apt-get autoremove
 sudo ./NIVIDIA-Linux-X86_64-384.59.run --uninstall
 
-需要把grub的内核版本固定
+2、需要把grub的内核版本固定
 sudo apt update
 sudo apt upgrade -y
 sudo apt install build-essential gcc-multilib  dkms linux-headers-$(uname -r)
 
-
+3、禁止系统自带显卡驱动nouveau。
 编辑 /etc/modprobe.d/blacklist-nouveau.conf 文件，添加以下内容：
 blacklist nouveau
 blacklist lbm-nouveau
@@ -23,6 +23,9 @@ sudo echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.co
 
 $ sudo update-initramfs -u
 $ sudo reboot
+
+验证自带驱动是否已经禁用
+lsmod | grep nouveau
 
 关掉x graphic 服务(无图形不做下面三条)
 sudo systemctl stop lightdm(or sudo service lightdm stop)
