@@ -1,0 +1,2 @@
+1、git clone https://github.com/THUDM/GLM-4.git
+2、pip install -r requirements.txt
