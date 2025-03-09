@@ -44,6 +44,30 @@ model=Automodel.from_pretrained(check_point,trust_remote_code=True)
 print(model)
 
 
+linux环境中 模型位于~/.cache/huggingface/目录下。
+datasets #数据集
+metrics #评估指标
+models #模型架构
+transformers #相关组件
+
+p154页
+
+开发主要步骤：
+1、环境准备（Python,Pytorch,Transformers,CUDA,CuDNN）
+2、模型加载 from_pretrained
+3、数据预处理
+4、推理与生成
+5、服务部署
+
+
+AutoConfig
+AutoModel
+AutoTokenizer
+
+
+
+
+
 
 
 
