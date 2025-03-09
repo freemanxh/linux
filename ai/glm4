@@ -29,6 +29,24 @@ Jieba、THULAC、哈工大LTP （HMM、条件随机场Conditional Random Field C
 JAX python库
 
 
+安装transformers库
+pip install transformers
+pip install transformers==4.0
+
+conda install -c huggingface transformers
+
+
+helloword程序
+from transformers import AutoModel
+check_point="THUDM/chaatglm3-6b"
+#model_path="/home/egcs/models/chatglm3-6b"
+model=Automodel.from_pretrained(check_point,trust_remote_code=True)
+print(model)
+
+
+
+
+
 
 
 
