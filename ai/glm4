@@ -5,6 +5,19 @@
 5、/project/GLM-4-main/basic_demo/trans_cli_demo.py  #改model地址
 6、python3 ./trans_cli_demo.py
 
+量化4bit
+glm3:
+model_name_or_path="/home/egcs/models/chatglm3-6b"
+model=AutoModel.from-pretrained(model_name_or_path,trust_remote_code=True).quantize(4).cuda()
+glm4:
+model_name_or_path="/home/egcs/models/glm4-9b-chat"
+model=AutoModelForCausalLm.from_pretrained(
+model_name_or_path,
+low_cpu_mem_usage=True,
+trust_remote_code=True,
+load_in_4bit=True
+).eval()
+
 
 
 
