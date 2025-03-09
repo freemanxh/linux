@@ -19,5 +19,14 @@ load_in_4bit=True
 ).eval()
 
 
+中文分词
+分词方法：
+词典、统计(Hidden Markov Model HMM)、规则、deeplearn
+工具：
+Jieba、THULAC、哈工大LTP （HMM、条件随机场Conditional Random Field CRF）、NLPIR、斯坦福分词器
+
+
+
+
 
 
