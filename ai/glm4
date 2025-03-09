@@ -26,6 +26,9 @@ load_in_4bit=True
 Jieba、THULAC、哈工大LTP （HMM、条件随机场Conditional Random Field CRF）、NLPIR、斯坦福分词器
 
 
+JAX python库
+
+
 
 
 
