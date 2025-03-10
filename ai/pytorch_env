@@ -1,11 +1,18 @@
 conda安装还可以参考 /python/anaconda
 
 1、conda 安装
-清华镜像下载：  https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
-安装不需要sudo
-验证：  conda --version
+1）清华镜像下载：  https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
+2）安装不需要sudo
+运行安装脚本：bash Anaconda3-2023.03-1-Linux-x86_64.sh
 
-不自动激活conda基础环境
+3）如果安装程序已经做了，就不用做以下步骤
+设置环境变量：vim ~/.bashrc
+# 设置Anaconda的环境变量export PATH="/root/anaconda3/bin:$PATH"
+source ~/.bashrc
+
+4）验证：  conda --version
+
+配置不自动激活conda基础环境
 conda config --set auto_activate_base false
 
 改源：
@@ -13,20 +20,34 @@ conda config --set auto_activate_base false
 ssl_verify: true
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - defaults
+channel_priority: strict
 show_channel_urls: true
+auto_activate_base: false
 或
 ssl_verify: true
 channels:
   - https://mirrors.aliyun.com/anaconda/pkgs/free/
   - https://mirrors.aliyun.com/anaconda/pkgs/main/
+channel_priority: strict
 show_channel_urls: true
+auto_activate_base: false
+
+5) 验证配置:conda config --show channels
+   conda config --show channel_priority
+   # 更新环境:conda update --all
 
 更新:
 conda update conda
 
-更新第三方包:
+更新第三方包:（小心用）
 conda upgrade --all
+
+× 如果遇到 conda-libmamba-solver (libarchive.so.19: cannot open shared object file: No such file or directory)错。
+conda install --solver=classic conda-forge::conda-libmamba-solver conda-forge::libmamba conda-forge::libmambapy conda-forge::libarchive
 
 conda python版本问题
 conda info -e 或 conda-env list #查看anaconda中当前存在的环境 
