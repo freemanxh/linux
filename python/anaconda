@@ -50,7 +50,7 @@ conda install --solver=classic conda-forge::conda-libmamba-solver conda-forge::l
 conda python版本问题
 conda info -e 或 conda env list #查看anaconda中当前存在的环境 
 
-
+8)需要改pip的源，见/python/pip
 
 ubuntu 启动 jupyter notebook 无gui
 1、jupyter notebook --no-browser --port=8890  # 记得token
@@ -68,18 +68,8 @@ conda activate python27
 
 3、创建一个虚拟环境
   conda create -n myvllm python=3.10
-	#激活环境
-	conda activate myvllm
-	
-	改pip为清华源 /home/xuhui/.pip/pip.conf
-	[global]
-	index-url = https://pypi.tuna.tsinghua.edu.cn/simple
-	or 
-	index-url = https://mirrors.aliyun.com/pypi/simple/
-	trusted-host = mirrors.aliyun.com
-	
-	验证：
-	pip config list
+  #激活环境
+  conda activate myvllm
 
 4、删除 anaconda3
 	1、rm -rf ~/anaconda3  # 如果是 Anaconda
