@@ -51,7 +51,22 @@ metrics #评估指标
 models #模型架构
 transformers #相关组件
 
-p154页
+===============================================
+p154
+from transformers import AutoTokenizer,AutoModel
+model_path="/home/egcs/models/chatglm3-6b"
+tokenizer_path=model_path
+tokenizer=AutoTokenizer.from_pretrained(tokenizer_path,trust_remote_code=True)
+.quantize(4)
+.cuda()
+
+model=AutoModel.from_pretrained(model_path,trust_remote_code=True).quantize(4).cuda()
+model=model.eval()
+response,bistory=model.chat(tokenizer,"晚上睡不着应该怎么办",history=[])
+print(response)
+===============================================
+水利数据微调模型
+https://modelscope.cn/models/a135817958/ChatGLM3-water-lora
 
 开发主要步骤：
 1、环境准备（Python,Pytorch,Transformers,CUDA,CuDNN）
@@ -70,6 +85,13 @@ Transformers库的NLP流程三个核心组件：
 1、Tokenizer (分词器) ：编码，装文本转为数字向量
 2、Model (模型) ：计算并输出表示文本意义的概率分布，即Logits
 3、PostProcessing （后处理）：利用产生的Logits，依据NLP任务的需求，将其转换为最终的、可解释的结果。
+
+
+==============================================================================================
+模型加载和解读
+1）编码器（Encoder）模型，如BERT
+2) 解码器（Decoder）模型，以GPT(1,2,3)
+
 
 
 
