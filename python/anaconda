@@ -59,11 +59,17 @@ ubuntu 启动 jupyter notebook 无gui
 
 
 2、conda基本操作
-创建虚拟环境 
+1)创建虚拟环境 
 conda create -n python27 python=2.7
 
-切换虚拟环境
+2)切换虚拟环境
 conda activate python27
+
+3)删除一个env
+退到base中
+conda env remove --name env_name
+conda clean --all
+rm -rf ~/anaconda3/envs/myenv
 
 
 3、创建一个虚拟环境
