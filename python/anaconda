@@ -15,11 +15,11 @@ source ~/.bashrc
 conda config --set auto_activate_base false
 
 5）改源：
-/home/username/.condarc文件
+/home/username/.condarc文件  #channels的顺序决定取组件的顺序
 ssl_verify: true
 channels:
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
   - defaults
 channel_priority: strict
