@@ -66,6 +66,16 @@ AutoModel
 AutoTokenizer
 
 
+Transformers库的NLP流程三个核心组件：
+1、Tokenizer (分词器) ：编码，装文本转为数字向量
+2、Model (模型) ：计算并输出表示文本意义的概率分布，即Logits
+3、PostProcessing （后处理）：利用产生的Logits，依据NLP任务的需求，将其转换为最终的、可解释的结果。
+
+
+
+
+
+
 
 
 
