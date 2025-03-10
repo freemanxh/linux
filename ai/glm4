@@ -94,6 +94,13 @@ Transformers库的NLP流程三个核心组件：
 3）序列到序列（Sequence-to-Sequence）模型，如BART，理解输入序列并生成新序列的任务。
 
 
+#distilbert-base-uncased模型
+from transformers import AutoTokenizer,AutoModel
+tokenizer=AutoTokenizer.from_pretrained('/home/yematech/glm/distilbert-base-uncased',trust_remote_code=True)
+model=AutoModel.from_pretrained('/home/yematech/glm/distilbert-base-uncased',trust_remote_code=True).half().cuda()
+print(model)
+
+
 
 
 
