@@ -5,7 +5,7 @@
 [global]
 index-url = http://192.168.0.83:8081/repository/pypi_group/simple 
 trusted-host = 192.168.0.83
-
+timeout = 3600
 
 改pip为清华源 /home/xuhui/.pip/pip.conf
 [global]
