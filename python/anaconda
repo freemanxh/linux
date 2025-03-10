@@ -52,20 +52,21 @@ conda info -e 或 conda env list #查看anaconda中当前存在的环境
 
 
 
-
-
-
-
-
 ubuntu 启动 jupyter notebook 无gui
 1、jupyter notebook --no-browser --port=8890  # 记得token
 2、ssh yematech@192.168.0.5 -L127.0.0.1:8893:127.0.0.1:8890
 3、http://127.0.0.1:8893
 
 
+2、conda基本操作
+创建虚拟环境 
+conda create -n python27 python=2.7
+
+切换虚拟环境
+conda activate python27
 
 
-2、创建一个虚拟环境
+3、创建一个虚拟环境
   conda create -n myvllm python=3.10
 	#激活环境
 	conda activate myvllm
@@ -80,7 +81,7 @@ ubuntu 启动 jupyter notebook 无gui
 	验证：
 	pip config list
 
-3、删除 anaconda3
+4、删除 anaconda3
 	1、rm -rf ~/anaconda3  # 如果是 Anaconda
 	2、编辑 .bashrc
 	去掉相关的：export PATH="/home/<YourUsername>/anaconda3/bin:$PATH"
