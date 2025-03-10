@@ -22,7 +22,6 @@ channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - defaults
 channel_priority: strict
 show_channel_urls: true
@@ -50,7 +49,7 @@ conda upgrade --all
 conda install --solver=classic conda-forge::conda-libmamba-solver conda-forge::libmamba conda-forge::libmambapy conda-forge::libarchive
 
 conda python版本问题
-conda info -e 或 conda-env list #查看anaconda中当前存在的环境 
+conda info -e 或 conda env list #查看anaconda中当前存在的环境 
 
 创建虚拟环境 
 conda create -n python27 python=2.7
