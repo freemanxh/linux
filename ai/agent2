@@ -2,3 +2,10 @@
 sudo ./LM-Studio-0.3.12-1-x64.AppImage --no-sandbox
 
 
+2、autogenstudio
+pip install autogenstudio
+autogenstudio ui --port 8081
+
+
+
+
