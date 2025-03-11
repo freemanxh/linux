@@ -1,5 +1,6 @@
 1、LM Studio
 正常运行LM-Studio就好，如果不能运行则用sudo运行 sudo ./LM-Studio-0.3.12-1-x64.AppImage --no-sandbox
+加载模型时，/home/xuhui/.lmstudio/models/  放在这个目录中
 
 
 2、autogenstudio
