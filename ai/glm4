@@ -111,6 +111,7 @@ autogen 多Agent协作框架，支持人机协同与工具链集成   多角色�
 crewai 确定性任务流，基于LangChain生态工具链  企业级流程自动化（如客服工单处理）
 camel-ai 基于知识图谱的推理框架  专业领域决策（如医疗诊断） （依赖知识库质量）
 ChatDev 通过自然语言配置即可生成基础Agent，5分钟搭建客服原型
+langgraph
 
 
 
