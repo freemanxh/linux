@@ -89,7 +89,7 @@ Transformers库的NLP流程三个核心组件：
 
 ==============================================================================================
 国内开源模型
-Qwen DeepSeek ChatGLM
+Qwen DeepSeek ChatGLM QWQ
 
 
 模型加载和解读
@@ -101,6 +101,9 @@ Qwen DeepSeek ChatGLM
 AWQ 指令微调模型需低精度量化且对精度敏感时（如企业级Agent）
 GPTQ 需高性能GPU推理且追求极致压缩率时 （如云端部署）
 GGUF 本地或边缘设备部署，需平衡资源与性能时（如个人开发者）
+
+应用实现难易，从易到难
+Chat、RAG、高效微调
 
 git clone https://www.modelscope.cn/OuteAI/OuteTTS-0.3-1B-GGUF.git
 
