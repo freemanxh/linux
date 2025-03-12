@@ -26,7 +26,11 @@ G:基于检索结果增强Prompt激活LLM以生成答案。
 1)记忆：在db或nosql中存储聊天记录，使LLM能够进行长期对话。
 2)知识：在向量数据库中存储信息，为LLM提供专业的上下文知识。
 3)工具：使LLM能够从api获取数据、发送邮件或发送请求
-phidata库  pip install phidata
+phidata库  pip install -U phidata
+
+https://zhuanlan.zhihu.com/p/16288218850
+
+
 
 
 
