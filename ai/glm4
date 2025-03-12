@@ -88,10 +88,21 @@ Transformers库的NLP流程三个核心组件：
 
 
 ==============================================================================================
+国内开源模型
+Qwen DeepSeek ChatGLM
+
+
 模型加载和解读
-1）编码器（Encoder）模型，如BERT ，分类
-2) 解码器（Decoder）模型，以GPT(1,2,3)，文本生成
-3）序列到序列（Sequence-to-Sequence）模型，如BART，理解输入序列并生成新序列的任务。
+1）编码器（Encoder）模型，如BERT ，文本分类、实体识别
+2) 解码器（Decoder）模型，以GPT(1,2,3)，文本生成、机器翻译
+3）序列到序列（Sequence-to-Sequence）模型，如BART，理解输入序列并生成新序列的任务。 ChatGLM也算。
+
+模型量化
+AWQ 指令微调模型需低精度量化且对精度敏感时（如企业级Agent）
+GPTQ 需高性能GPU推理且追求极致压缩率时 （如云端部署）
+GGUF 本地或边缘设备部署，需平衡资源与性能时（如个人开发者）
+
+git clone https://www.modelscope.cn/OuteAI/OuteTTS-0.3-1B-GGUF.git
 
 
 #distilbert-base-uncased模型
