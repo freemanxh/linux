@@ -37,6 +37,29 @@ sudo usermod -aG docker $USER
 newgrp docker
 
 
+------------------------------------------------------------------------------------------------------------------
+docker 使用 gpu配置
+step1.
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+要关注/etc/docker/daemon.json中的配置
+step2.
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+
+step3.
+sudo systemctl restart docker
+sudo usermod -aG video $USER
+
+验证：
+sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+
+配置Docker 使用 GPU：
+docker run --gpus all -it --rm nvidia/cuda:11.0-base nvidia-smi
+docker run --gpus '"device=0,1"' -it --rm nvidia/cuda:11.0-base nvidia-smi
+
 
 =================================================================================================================
 
