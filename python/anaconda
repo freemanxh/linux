@@ -38,7 +38,9 @@ auto_activate_base: false
    conda config --show channel_priority
    # 更新环境:conda update --all
 
-7) 更新:
+7)需要改pip的源，见/python/pip
+
+8) 更新:
 conda update conda
 
 更新第三方包:（小心用）
@@ -50,7 +52,7 @@ conda install --solver=classic conda-forge::conda-libmamba-solver conda-forge::l
 conda python版本问题
 conda info -e 或 conda env list #查看anaconda中当前存在的环境 
 
-8)需要改pip的源，见/python/pip
+
 
 ubuntu 启动 jupyter notebook 无gui
 1、jupyter notebook --no-browser --port=8890  # 记得token
