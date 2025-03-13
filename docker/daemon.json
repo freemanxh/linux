@@ -1,0 +1,29 @@
+/etc/docker/daemon.json
+{
+ "registry-mirrors": ["http://192.168.0.83:8082"]
+}
+
+
+sudo systemctl restart docker
+
+
+一、主流推荐镜像源
+    https://docker.1panel.live
+        特点：由1Panel团队维护，覆盖主流镜像且更新及时，支持HTTPS加密传输，实测拉取速度稳定在10-30MB/s
+    https://hub.rat.dev
+        特点：开发者社区共建镜像库，包含NVIDIA CUDA等特殊镜像，适合AI开发场景
+    https://docker.kejilion.pro
+        特点：多线路负载均衡，尤其适合华东地区用户，支持自动同步Docker Hub官方镜像
+    https://docker.udayun.com
+        特点：高校联合维护的镜像站，稳定性高，适合学术研究场景
+二、备用镜像源
+    https://atomhub.openatom.cn
+        特点：开放原子基金会官方镜像源，专注开源项目镜像（如Kubernetes、Rust工具链）
+    https://docker.imgdb.de
+        特点：德国镜像站中国CDN加速节点，适合拉取海外冷门镜像
+    https://docker.m.daocloud.io
+        特点：DaoCloud历史遗留加速器，部分镜像缓存较旧但覆盖广泛
+
+GPU镜像：推荐使用 https://hub.rat.dev 或 https://docker.kejilion.pro 加速NVIDIA相关镜像
+
+
