@@ -1,1 +1,3 @@
 1、dotenv 新包应该安装此python-dotenv版本
+2、当pip在清华镜像站不能升级时，用aliyun
+pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
