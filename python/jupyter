@@ -1,0 +1,3 @@
+1、在pycharm中使用
+pip install jupyter ipykernel
+jupyter notebook --generate-config --allow-root
