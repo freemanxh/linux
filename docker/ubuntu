@@ -34,6 +34,7 @@ sudo docker run hello-world
 sudo groupadd docker
 #把当前用户加了docker组中，需要重新登录生效,不建议在生产系统中用非root启动docker
 sudo usermod -aG docker $USER
+#直接让加的新组生效
 newgrp docker
 
 
