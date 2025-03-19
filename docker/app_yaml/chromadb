@@ -1,0 +1,72 @@
+version: '3.9'
+#networks:
+ # net:
+  #  driver: bridge
+services:
+  chromadb:
+    container_name: chromadb
+    #image: ghcr.io/chroma-core/chroma:latest
+    image: chromadb/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+    volumes:
+      # Default configuration for persist_directory in chromadb/config.py
+      # Currently it's located in "/chroma/chroma/"
+      - "./chroma-data:/chroma/chroma/"
+    ports:
+      - 8000:8000
+    #networks:
+     # - net
+
+#volumes:
+ # chroma-data:
+  #  driver: local
+
+
+============================================================================
+
+version: '3.9'
+
+#networks:
+ # net:
+  #  driver: bridge
+
+services:
+  server:
+    image: chromadb/chroma:latest
+    #image: ghcr.io/chroma-core/chroma:latest
+    build:
+      context: .
+      dockerfile: rust/cli/Dockerfile
+      # Uncomment below to build in release mode
+      # args:
+      #   RELEASE_MODE: "1"
+    volumes:
+      # The default config specifies a persist_directory of /data.
+      # Read more about deployments: https://docs.trychroma.com/deployment
+      - ./chroma-data:/data
+    environment:
+      - CHROMA_OPEN_TELEMETRY__ENDPOINT=${CHROMA_OPEN_TELEMETRY__ENDPOINT}
+      - CHROMA_OPEN_TELEMETRY__SERVICE_NAME=${CHROMA_OPEN_TELEMETRY__SERVICE_NAME}
+      - OTEL_EXPORTER_OTLP_HEADERS=${OTEL_EXPORTER_OTLP_HEADERS}
+    restart: unless-stopped # possible values are: "no", always", "on-failure", "unless-stopped"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      # Adjust below to match your container port
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/api/v2/heartbeat" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+   # networks:
+    #  - net
+
+#volumes:
+ # chroma-data:
+  #  driver: local
+
+
+
+
+
+
