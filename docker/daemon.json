@@ -10,6 +10,9 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 以下为相关镜像
+
+https://1ms.run/
+
 一、主流推荐镜像源
     https://docker.1panel.live
         特点：由1Panel团队维护，覆盖主流镜像且更新及时，支持HTTPS加密传输，实测拉取速度稳定在10-30MB/s
