@@ -14,6 +14,8 @@ sudo systemctl restart docker
 以下为相关镜像
 
 https://1ms.run/
+https://docker.1ms.run
+https://docker.xuanyuan.me
 
 一、主流推荐镜像源
     https://docker.1panel.live
