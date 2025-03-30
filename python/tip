@@ -1,5 +1,0 @@
-pip3 install -r requirements.txt -i 换源地址 #导入python包。按文件列表
-
-pip3 uninstall chromadb
-
-pip install tokenizers==0.20.3 --force-reinstall  #使用 --force-reinstall 选项可以确保即使已经安装了更高版本也会重新安装指定版本。
