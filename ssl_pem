@@ -52,6 +52,10 @@ acme.sh --install-cert -d *.yematech.cn \
 
 
 #50上申请，60上/data/ssl/yematech.cn
+文件权限：
+-rw-r--r-- 1 docker 1000 1440 5月  29 10:46 cert.pem
+-rw-r--r-- 1 docker 1000 4108 5月  29 10:46 fullchain.pem
+-r-------- 1 docker 1000  227 5月  29 10:46 key.pem
 =====================================================================
 
 3、自动登录续签（还没有通过）
