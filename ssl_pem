@@ -45,7 +45,6 @@ acme.sh --issue --dns -d *.yematech.cn --yes-I-know-dns-manual-mode-enough-go-ah
 acme.sh --issue --force --dns -d *.yematech.cn --yes-I-know-dns-manual-mode-enough-go-ahead-please
 增加txt解析 #需要把返回字符串增加到域名管理系统中
 acme.sh --renew -d *.yematech.cn --yes-I-know-dns-manual-mode-enough-go-ahead-please
-acme.sh --renew --force -d *.yematech.cn --yes-I-know-dns-manual-mode-enough-go-ahead-please
 acme.sh --install-cert -d *.yematech.cn \
         --key-file /home/yematech/ssl/yematech.cn/key.pem \
         --cert-file /home/yematech/ssl/yematech.cn/cert.pem \
