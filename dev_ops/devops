@@ -163,7 +163,13 @@ manage jenkins -> system configuration -> tools
 vim harbor.yml，改hostname，注掉 https，可改admin的password，安装./install.sh。进行安装，安装一堆docker images 且没有报错。
 http://192.168.0.99  admin Harbor12345， 进harbor系统创建一个公有仓库。
 
-对镜像的要求：harbor地址/项目名/镜像名:版本  -> docker tag 1d7027..df 192.168.0.99:80/repo/mytest:v1.0.0
+
+
+对镜像的要求：harbor地址/项目名/镜像名:版本  -> docker tag 1d7027..df 192.168.0.99:80/repo/mytest:v1.0.0  # repo要对应在harbor仓库中有相应的仓库项目
+
+如果没有https，在局域网中，需要在daemon.json中加入http支持。
+"insecure-registries": ["192.168.0.99:80"]
+
 对docker登录harbor： docker login -u admin -p Harbor12345 192.168.0.99:80
 docker push 192.168.0.99:80/repo/mytest:v1.0.0
 
