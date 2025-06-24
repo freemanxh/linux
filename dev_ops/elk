@@ -1,9 +1,0 @@
-1、创建目录及相应文件
-sudo mkdir -p /opt/elk/elasticsearch/data /opt/elk/elasticsearch/config /opt/elk/elasticsearch/plugins
-sudo mkdir -p /opt/elk/logstash/logs /opt/elk/logstash/data /opt/elk/logstash/pipeline /opt/elk/logstash/config
-sudo mkdir -p /opt/elk/kibana/config
-
-sudo chmod -R 777 /opt/elk/
-
-2、创建docker network
-docker network create elk_network
