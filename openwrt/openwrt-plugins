@@ -24,16 +24,52 @@ b.防火墙设置
 转发：接受
 把区域中的wan去掉。
 
-
-
-
-
-
-
 /etc/opkg/distfeeds.conf
 mirrors.vsean.net/openwrt 修改为 mirror.sjtu.edu.cn/immortalwrt
                                 mirrors.tuna.tsinghua.edu.cn/openwrt/
 opkg update
+
+------------------------------------------------------------------
+openclash 配置
+
+如果没有安装ipset ，需要安装ipset。在gui中检查。
+
+openclash 手动安装
+github.com/vernesong/OpenClash
+
+1、先安装依赖
+#iptables
+opkg update
+opkg install bash iptables dnsmasq-full curl ca-bundle ipset ip-full iptables-mod-tproxy iptables-mod-extra ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base
+opkg install /tmp/openclash.ipk
+
+apk update
+apk add bash iptables dnsmasq-full curl ca-bundle ipset ip-full iptables-mod-tproxy iptables-mod-extra ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base
+apk add -q --force-overwrite --clean-protected --allow-untrusted /tmp/openclash.apk
+
+
+下载:
+https://github.com/vernesong/OpenClash/releases/download/v0.47.001/luci-app-openclash_0.47.001_all.ipk
+
+
+安装openclash内核
+openclash -> 插件设置  -> 版本更新
+
+如果能翻墙，就可以自动列新内核
+如果不能，则需要手动下载。
+确保本机器能wall，下载后。配置管理->文件类型为meta内核心->选中上传
+确保meta能显示正常的。如： alpha-g0ced98d
+
+
+--------------------------------------
+覆写设置
+DNS设置
+自定义上游DNS服务器要选中
+nameserver 为国内
+fallback 为国内
+并保存
+
+
 
 https://zhuanlan.zhihu.com/p/609066343
 =========================================================================
