@@ -14,20 +14,24 @@
 systemLog:
   path: /data/log/mongod.log
   logAppend: true
-  destination: file
+  destination: reopen
 net:
   port: 27017
   bindIpAll: true
 security:
   keyFile: /etc/mongo/mongod.key
   authorization: enabled
-  transitionToAuth: true
+  #transitionToAuth: true
 storage:
   dbPath: /data/db
   directoryPerDB: true
   engine: wiredTiger
   wiredTiger:
     engineConfig:
+      # 重要：根据你的物理机内存调整。
+      # 公式：0.5 * (物理内存 - 1GB)。如果是单机跑3个实例，每个实例建议不要超过总内存的 15%。
+      # 你之前提到有 92GB 内存，如果只跑这三个，可以给 10-20GB；如果还跑 Java，维持 2GB 也可以。
+      
       cacheSizeGB: 2
       journalCompressor: snappy
       directoryForIndexes: true
@@ -37,9 +41,11 @@ storage:
       prefixCompression: true
 operationProfiling:
   mode: slowOp
-  slowOpThresholdMs: 500
+  slowOpThresholdMs: 100
 replication:
   replSetName: mongoRS
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
 
 
 sudo chown lxd:lxd ./data/mongo/mongod.conf
